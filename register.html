@@ -15,17 +15,18 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html">Home</a>
+        <a href="index.php">Home</a>
         <a href="register.html">Register</a>
         <a href="events.html">Browse Events</a>
         <a href="feedback.html">Feedback</a>
     </nav>
+    
 
     <!-- Registration Form -->
     <div class="container">
         <div class="section" id="registration">
             <h2>Register</h2>
-            <form>
+            <form action="register.php" method="POST">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
                 

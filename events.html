@@ -5,6 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System - Browse Events</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Function to fetch events from the database
+        function fetchEvents() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost/fetch_events.php', true); // Ensure URL is correct
+
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    try {
+                        const events = JSON.parse(this.responseText);
+                        const eventsContainer = document.getElementById('events-container');
+                        
+                        // Clear the previous content
+                        eventsContainer.innerHTML = '';
+
+                        // Check if events were returned
+                        if (events.length > 0) {
+                            events.forEach(event => {
+                                const eventCard = document.createElement('div');
+                                eventCard.classList.add('event-card');
+                                eventCard.innerHTML = `
+                                    <h3>${event.event_name}</h3>
+                                    <p><strong>Date:</strong> ${event.event_date}</p>
+                                    <p><strong>Time:</strong> ${event.event_time}</p>
+                                    <p><strong>Location:</strong> ${event.location}</p>
+                                    <p><strong>Description:</strong> ${event.description}</p>
+                                    <form action="register_event.php" method="POST">
+                                        <input type="hidden" name="user_id" value="1"> <!-- Placeholder user ID -->
+                                        <input type="hidden" name="event_id" value="${event.event_id}">
+                                        <button type="submit">Register for Event</button>
+                                    </form>
+                                `;
+                                eventsContainer.appendChild(eventCard);
+                            });
+                        } else {
+                            eventsContainer.innerHTML = '<p>No events available at the moment.</p>';
+                        }
+                    } catch (e) {
+                        console.error('Error parsing JSON response:', e);
+                        document.getElementById('events-container').innerHTML = '<p>Error processing event data.</p>';
+                    }
+                } else {
+                    console.error('Error fetching events:', this.status);
+                    document.getElementById('events-container').innerHTML = '<p>Error loading events. Please try again later.</p>';
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error('Request error.');
+                document.getElementById('events-container').innerHTML = '<p>Error connecting to the server. Please try again later.</p>';
+            };
+
+            xhr.send();
+        }
+
+        // Call fetchEvents function when the page loads
+        window.onload = fetchEvents;
+    </script>
 </head>
 <body>
 
@@ -15,35 +73,26 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html">Home</a>
+        <a href="index.php">Home</a>
         <a href="register.html">Register</a>
         <a href="events.html">Browse Events</a>
         <a href="feedback.html">Feedback</a>
     </nav>
 
-    <!-- Browse Events -->
+    <!-- Browse Events Section -->
     <div class="container">
         <div class="section" id="events">
             <h2>Browse Events</h2>
-
-            <!-- Event Card Example -->
-            <div class="event-card">
-                <h3>Tech Conference 2024</h3>
-                <p><strong>Date:</strong> November 15, 2024</p>
-                <p><strong>Location:</strong> Bangkok Convention Center</p>
-                <p><strong>Description:</strong> An event for tech enthusiasts to learn and network.</p>
-                <button>Register for Event</button>
-            </div>
-
-            <div class="event-card">
-                <h3>Startup Expo 2024</h3>
-                <p><strong>Date:</strong> December 5, 2024</p>
-                <p><strong>Location:</strong> Virtual Event</p>
-                <p><strong>Description:</strong> A virtual event showcasing innovative startups.</p>
-                <button>Register for Event</button>
+            <div id="events-container">
+                <!-- Event cards will be dynamically added here -->
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Event Management System. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>

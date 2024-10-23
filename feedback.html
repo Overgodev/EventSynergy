@@ -15,21 +15,21 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html">Home</a>
+        <a href="index.php">Home</a>
         <a href="register.html">Register</a>
         <a href="events.html">Browse Events</a>
         <a href="feedback.html">Feedback</a>
     </nav>
-
+    
     <!-- Feedback Form -->
     <div class="container">
         <div class="section" id="feedback">
             <h2>Event Feedback</h2>
-            <form>
+            <form action="feedback.php" method="POST">
                 <label for="event">Event Attended:</label>
                 <select id="event" name="event">
-                    <option value="Tech Conference 2024">Tech Conference 2024</option>
-                    <option value="Startup Expo 2024">Startup Expo 2024</option>
+                    <option value="1">Tech Conference 2024</option>
+                    <option value="2">Startup Expo 2024</option>
                 </select>
 
                 <label for="feedback">Your Feedback:</label>
