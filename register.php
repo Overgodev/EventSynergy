@@ -1,25 +1,33 @@
 <?php
 include 'db_connect.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Check if form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve form data
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $plain_password = $_POST['password']; // Plain password from form
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    // Hash the password before storing it
-    $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
-    $user_type = $_POST['user_type']; // 'Admin' or 'User'
-
-    // Insert the new user with the hashed password
-    $sql = "INSERT INTO Users (username, email, password, user_type) 
-            VALUES ('$username', '$email', '$hashed_password', '$user_type')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "User registered successfully!";
+    // Check if 'user_type' is set and valid
+    if (isset($_POST['user_type']) && ($_POST['user_type'] == 'User' || $_POST['user_type'] == 'Admin')) {
+        $user_type = $_POST['user_type'];
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $user_type = 'User'; // Set a default value
     }
 
+    // Insert into database
+    $sql = "INSERT INTO Users (username, email, password, user_type) 
+            VALUES ('$username', '$email', '$password', '$user_type')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Registration successful. Redirecting to the home page in 3 seconds...";
+        // Wait for 3 seconds and redirect to the homepage
+        header("Refresh:3; url=index.php");
+    } else {
+        echo "Error: " . $conn->error;
+    }
+
+    // Close the connection
     $conn->close();
 }
 ?>
