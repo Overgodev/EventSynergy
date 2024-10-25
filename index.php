@@ -1,70 +1,48 @@
 <?php
 session_start(); // Start session at the beginning
+include 'config/db_connect.php'; // Adjusted path for database connection
+
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+$userType = $isLoggedIn ? $_SESSION['user_type'] : '';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Management System - Home</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Home - Event Management System</title>
+    <link rel="stylesheet" href="/assets/css/style.css"> <!-- Adjusted path for CSS -->
 </head>
 <body>
-
-    <!-- Header -->
     <header>
-        <h1>Event Management System</h1>
+        <nav>
+            <!-- Navigation Links -->
+            <?php if ($isLoggedIn): ?>
+                <?php if ($userType == 'Admin'): ?>
+                    <a href="/admin/admin.php">Admin Panel</a>
+                <?php else: ?>
+                    <a href="/user/user.php">User Dashboard</a>
+                <?php endif; ?>
+                <a href="/index.php">Home</a>
+                <a href="/auth/logout.php">Logout</a>
+            <?php else: ?>
+                <a href="/index.php">Home</a>
+                <a href="/auth/login.php">Login</a>
+                <a href="/auth/register.php">Register</a>
+            <?php endif; ?>
+        </nav>
     </header>
 
-    <!-- Navigation -->
-    <nav>
-        <!-- Check if user is logged in -->
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <p>Welcome, <?php echo $_SESSION['username']; ?> | <a href="logout.php">Logout</a></p>
-            
-            <!-- Show different options based on user role -->
-            <?php if ($_SESSION['user_type'] == 'Admin'): ?>
-                <a href="admin.php">Admin Panel</a>
-            <?php elseif ($_SESSION['user_type'] == 'User'): ?>
-                <a href="user.php">User Page</a>
-            <?php endif; ?>
+    <main>
+        <h1>Welcome to the Event Management System</h1>
+        <?php if ($isLoggedIn): ?>
+            <p>Hello, <?php echo $_SESSION['username']; ?>!</p>
+            <p>Explore upcoming events, register to participate, and provide feedback.</p>
         <?php else: ?>
-            <!-- If user is not logged in, show the Login link -->
-            <a href="login.html">Login</a>
+            <p>Please log in or register to access more features.</p>
         <?php endif; ?>
-
-        <!-- Common links for all users -->
-        <a href="index.php">Home</a>
-        <a href="register.html">Register</a>
-        <a href="events.html">Browse Events</a>
-        <a href="feedback.html">Feedback</a>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="section">
-            <h2>Welcome to the Event Management System</h2>
-            <p>Explore upcoming events, register to participate, and provide feedback on your experiences.</p>
-            
-            <!-- Dynamic content based on login status -->
-            <?php
-            if (isset($_SESSION['user_id'])) {
-                if ($_SESSION['user_type'] == 'Admin') {
-                    echo "<p>As an admin, you can manage events and users.</p>";
-                } else {
-                    echo "<p>As a user, you can browse and register for events.</p>";
-                }
-            } else {
-                echo "<p>Please log in to access additional features.</p>";
-            }
-            ?>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Event Management System. All rights reserved.</p>
-    </footer>
-
+    </main>
 </body>
 </html>

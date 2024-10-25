@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
-    header('Location: login.html');
+    header('Location: ../auth/login.html');
     exit;
 }
-include 'db_connect.php';
+include '../config/db_connect.php';
 
 // Initialize event data variables
 $event = [
@@ -67,7 +67,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Event</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 

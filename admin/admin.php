@@ -1,10 +1,11 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
-    header('Location: login.php');
+    header('Location: /auth/login.php');
     exit;
 }
-include 'db_connect.php';
+
+include '../config/db_connect.php';
 
 // Fetch total number of Users and Admins
 $total_users = $conn->query("SELECT COUNT(*) AS total FROM Users WHERE user_type = 'User'")->fetch_assoc()['total'];
@@ -27,12 +28,54 @@ while ($row = $events->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <style>
+        /* Header styling */
+        header {
+            background-color: #1e5bb7; /* Dark blue */
+            color: white; /* White text */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header p {
+            margin: 0;
+        }
+        header a {
+            color: white; /* White text for logout link */
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
+        /* Navigation bar styling */
+        nav {
+            background-color: #1e5bb7; /* Dark blue */
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white; /* White text */
+            font-weight: bold;
+            margin: 0 20px;
+            text-decoration: none; /* No underline */
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
         /* Layout Styles */
         .container {
             display: flex;
             flex-direction: column;
+            padding: 20px;
         }
         .section {
             margin: 10px 0;
@@ -40,10 +83,8 @@ while ($row = $events->fetch_assoc()) {
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-
         /* Calendar Styles */
         .calendar-container {
-            flex: 1;
             margin-top: 10px;
         }
         .calendar {
@@ -54,12 +95,13 @@ while ($row = $events->fetch_assoc()) {
         }
         .day {
             width: 100%;
-            height: 100px;
+            height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
             border: 1px solid #ccc;
             position: relative;
+            flex-direction: column;
         }
         .event {
             background-color: #ffeb3b;
@@ -77,7 +119,6 @@ while ($row = $events->fetch_assoc()) {
         .today {
             background-color: #90caf9;
         }
-
         /* Responsive Styles */
         @media (min-width: 768px) {
             .container {
@@ -99,14 +140,14 @@ while ($row = $events->fetch_assoc()) {
     <!-- Header -->
     <header>
         <h1>Admin Dashboard</h1>
-        <p>Welcome, <?php echo $_SESSION['username']; ?> | <a href="logout.php">Logout</a></p>
+        <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="/auth/logout.php">Logout</a></p>
     </header>
 
     <!-- Navigation -->
     <nav>
-        <a href="admin.php">Dashboard</a>
-        <a href="admin_events.php">Manage Events</a>
-        <a href="admin_users.php">Manage Users</a>
+        <a href="/admin/admin.php">Dashboard</a>
+        <a href="/admin/admin_events.php">Manage Events</a>
+        <a href="/admin/admin_users.php">Manage Users</a>
     </nav>
 
     <!-- Main Content -->
@@ -123,7 +164,7 @@ while ($row = $events->fetch_assoc()) {
             <!-- Admins Table -->
             <div class="section">
                 <h2>Admin Users</h2>
-                <table border="1">
+                <table border="1" cellpadding="5" cellspacing="0">
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
@@ -142,7 +183,7 @@ while ($row = $events->fetch_assoc()) {
             <!-- Users Table -->
             <div class="section">
                 <h2>Regular Users</h2>
-                <table border="1">
+                <table border="1" cellpadding="5" cellspacing="0">
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
@@ -170,42 +211,33 @@ while ($row = $events->fetch_assoc()) {
 
     <!-- JavaScript for Calendar -->
     <script>
-        // Event data from PHP
         const events = <?php echo json_encode($eventData); ?>;
-        
-        // Get today's date
         const today = new Date();
 
-        // Generate the calendar for the current month
         function generateCalendar() {
             const calendar = document.getElementById('calendar');
             calendar.innerHTML = '';
 
-            // Get the first day of the current month
             const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
             const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
             const startDay = firstDay.getDay();
             const totalDays = lastDay.getDate();
 
-            // Add empty cells before the start of the month
             for (let i = 0; i < startDay; i++) {
                 const emptyCell = document.createElement('div');
                 emptyCell.className = 'day';
                 calendar.appendChild(emptyCell);
             }
 
-            // Add day cells
             for (let day = 1; day <= totalDays; day++) {
                 const dayCell = document.createElement('div');
                 dayCell.className = 'day';
                 dayCell.innerText = day;
 
-                // Highlight today
                 if (day === today.getDate()) {
                     dayCell.classList.add('today');
                 }
 
-                // Check for events on this day
                 const currentDate = new Date(today.getFullYear(), today.getMonth(), day);
                 events.forEach(event => {
                     const eventDate = new Date(event.event_date);
@@ -221,10 +253,8 @@ while ($row = $events->fetch_assoc()) {
             }
         }
 
-        // Initialize calendar on page load
         document.addEventListener('DOMContentLoaded', generateCalendar);
     </script>
 
 </body>
 </html>
-

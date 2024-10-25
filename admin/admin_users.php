@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
-    header('Location: login.php');
+    header('Location: ../auth/login.php');
     exit;
 }
-include 'db_connect.php'; // No change to the include path
+include '../config/db_connect.php';
 
 // Fetch users based on roles
 $users = $conn->query("SELECT * FROM Users WHERE user_type = 'User' ORDER BY user_id ASC");
@@ -16,14 +16,14 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
-    <link rel="stylesheet" href="style.css"> <!-- No change in CSS path -->
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
     <!-- Header -->
     <header>
         <h1>Manage Users</h1>
-        <p>Welcome, <?php echo $_SESSION['username']; ?> | <a href="logout.php">Logout</a></p>
+        <p>Welcome, <?php echo $_SESSION['username']; ?> | <a href="../auth/logout.php">Logout</a></p>
     </header>
 
     <!-- Navigation -->
@@ -37,7 +37,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
     <div class="container">
         <div class="section">
             <h2>Admin Users</h2>
-            <table border="1">
+            <table border="1" cellpadding="5" cellspacing="0">
                 <tr>
                     <th>ID</th>
                     <th>Username</th>
@@ -61,7 +61,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
         <!-- Users Table -->
         <div class="section">
             <h2>Regular Users</h2>
-            <table border="1">
+            <table border="1" cellpadding="5" cellspacing="0">
                 <tr>
                     <th>ID</th>
                     <th>Username</th>

@@ -1,15 +1,36 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
-    header('Location: login.html');
+    header('Location: ../auth/login.html');
     exit;
 }
-include 'db_connect.php';
+include '../config/db_connect.php';
 
 // Fetch user details for the given ID
+$user = [
+    'user_id' => '',
+    'username' => '',
+    'email' => '',
+    'user_type' => ''
+];
+
 if (isset($_GET['id'])) {
     $user_id = $_GET['id'];
-    $user = $conn->query("SELECT * FROM Users WHERE user_id = $user_id")->fetch_assoc();
+    $stmt = $conn->prepare("SELECT * FROM Users WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if user exists
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+    } else {
+        echo "No user found with the provided ID.";
+        exit;
+    }
+} else {
+    echo "User ID not provided.";
+    exit;
 }
 
 // Update user details if form is submitted
@@ -19,14 +40,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
 
-    $sql = "UPDATE Users SET username = '$username', email = '$email', user_type = '$user_type' WHERE user_id = $user_id";
+    $stmt = $conn->prepare("UPDATE Users SET username = ?, email = ?, user_type = ? WHERE user_id = ?");
+    $stmt->bind_param("sssi", $username, $email, $user_type, $user_id);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         header('Location: admin_users.php');
+        exit;
     } else {
-        echo "Error updating user: " . $conn->error;
+        echo "Error updating user: " . $stmt->error;
     }
 }
+
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -35,7 +59,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -55,14 +79,14 @@ $conn->close();
     <div class="container">
         <div class="section">
             <h2>Update User</h2>
-            <form action="edit_user.php" method="POST">
+            <form action="edit_user.php?id=<?php echo $user['user_id']; ?>" method="POST">
                 <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
 
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="<?php echo $user['username']; ?>" required>
+                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
 
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo $user['email']; ?>" required>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
 
                 <label for="user_type">Role:</label>
                 <select id="user_type" name="user_type" required>
