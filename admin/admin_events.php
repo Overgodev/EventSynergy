@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
-    header('Location: /auth/login.php'); // Adjusted path for login
+    header('Location: /auth/login.php');
     exit;
 }
-include '../config/db_connect.php'; // Adjusted path for DB connection
+include '../config/db_connect.php';
 
 // Fetch all events
 $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time ASC");
@@ -15,13 +15,55 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Events</title>
-    <link rel="stylesheet" href="/assets/css/style.css"> <!-- Adjusted path for CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
     <style>
+        /* Header styling */
+        header {
+            background-color: #1e5bb7; /* Dark blue */
+            color: white; /* White text */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header p {
+            margin: 0;
+        }
+        header a {
+            color: white; /* White text for logout link */
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
+        /* Navigation bar styling */
+        nav {
+            background-color: #1e5bb7; /* Dark blue */
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white; /* White text */
+            font-weight: bold;
+            margin: 0 20px;
+            text-decoration: none; /* No underline */
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        /* Container styles */
         .container {
-            margin: 20px;
+            padding: 20px;
         }
         .section {
-            margin-top: 20px;
+            margin: 20px 0;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -37,22 +79,25 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
             border: 1px solid #ccc;
         }
         th {
-            background-color: #f5f5f5;
+            background-color: #1e5bb7;
+            color: white;
         }
         a {
+            color: #1e5bb7;
             text-decoration: none;
-            color: #007bff;
         }
         a:hover {
-            color: #0056b3;
+            text-decoration: underline;
         }
         .add-btn {
             display: inline-block;
             margin-top: 10px;
-            padding: 5px 10px;
+            padding: 8px 15px;
             background-color: #4caf50;
-            color: #fff;
+            color: white;
             border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
         }
         .add-btn:hover {
             background-color: #45a049;
@@ -64,7 +109,7 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
     <!-- Header -->
     <header>
         <h1>Manage Events</h1>
-        <p>Welcome, <?php echo $_SESSION['username']; ?> | <a href="/auth/logout.php">Logout</a></p> <!-- Adjusted path for logout -->
+        <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="/auth/logout.php">Logout</a></p>
     </header>
 
     <!-- Navigation -->
@@ -78,7 +123,7 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
     <div class="container">
         <div class="section">
             <h2>All Events</h2>
-            <a href="add_event.php" class="add-btn">Add New Event</a> <!-- Adjusted path -->
+            <a href="add_event.php" class="add-btn">Add New Event</a>
             <table>
                 <tr>
                     <th>ID</th>
@@ -97,8 +142,8 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
                         <td><?php echo date('H:i', strtotime($event['event_time'])); ?></td>
                         <td><?php echo htmlspecialchars($event['location']); ?></td>
                         <td>
-                            <a href="edit_event.php?id=<?php echo $event['event_id']; ?>">Edit</a> | <!-- Adjusted path -->
-                            <a href="delete_event.php?id=<?php echo $event['event_id']; ?>" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a> <!-- Adjusted path -->
+                            <a href="edit_event.php?id=<?php echo $event['event_id']; ?>">Edit</a> |
+                            <a href="delete_event.php?id=<?php echo $event['event_id']; ?>" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a>
                         </td>
                     </tr>
                     <?php endwhile; ?>

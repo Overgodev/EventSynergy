@@ -17,13 +17,86 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Header styling */
+        header {
+            background-color: #1e5bb7; /* Dark blue */
+            color: white; /* White text */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header p {
+            margin: 0;
+        }
+        header a {
+            color: white; /* White text for logout link */
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
+        /* Navigation bar styling */
+        nav {
+            background-color: #1e5bb7; /* Dark blue */
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white; /* White text */
+            font-weight: bold;
+            margin: 0 20px;
+            text-decoration: none; /* No underline */
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        /* Container styles */
+        .container {
+            padding: 20px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #1e5bb7;
+            color: white;
+        }
+        a {
+            color: #1e5bb7;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
     <!-- Header -->
     <header>
         <h1>Manage Users</h1>
-        <p>Welcome, <?php echo $_SESSION['username']; ?> | <a href="../auth/logout.php">Logout</a></p>
+        <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="../auth/logout.php">Logout</a></p>
     </header>
 
     <!-- Navigation -->
@@ -37,7 +110,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
     <div class="container">
         <div class="section">
             <h2>Admin Users</h2>
-            <table border="1" cellpadding="5" cellspacing="0">
+            <table>
                 <tr>
                     <th>ID</th>
                     <th>Username</th>
@@ -61,7 +134,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
         <!-- Users Table -->
         <div class="section">
             <h2>Regular Users</h2>
-            <table border="1" cellpadding="5" cellspacing="0">
+            <table>
                 <tr>
                     <th>ID</th>
                     <th>Username</th>
