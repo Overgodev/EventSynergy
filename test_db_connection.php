@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 
 // Database connection details for MAMP
 $host = 'localhost';    // Database host
+//$host = 'localhost:8889';    // Database host if the other one doesn't work
 $username = 'root';     // Default MAMP username
 $password = 'root';     // Default MAMP password
 $database = 'EventManagement'; // Database name
