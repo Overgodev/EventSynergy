@@ -4,17 +4,45 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'User') {
     header('Location: ../auth/login.php');
     exit;
 }
+
 include '../config/db_connect.php';
 
-// Fetch all events for users
-$events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time ASC");
+// Get current user ID
+$user_id = $_SESSION['user_id'];
+
+// Fetch events that the user has not registered for
+$query = "
+    SELECT e.event_id, e.event_name, e.event_date, e.event_time, e.location, e.description 
+    FROM events e
+    LEFT JOIN attendees a ON e.event_id = a.event_id AND a.user_id = ?
+    WHERE a.user_id IS NULL
+    ORDER BY e.event_date ASC, e.event_time ASC";
+
+$stmt = $conn->prepare($query);
+
+// Check if the prepare statement failed
+if (!$stmt) {
+    die("Error preparing the statement: " . $conn->error);
+}
+
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Prepare events list
+$events = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $events[] = $row;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Browse Events</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         /* Header styling */
@@ -25,6 +53,8 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
         header h1 {
             margin: 0;
@@ -47,6 +77,8 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
             display: flex;
             justify-content: center;
             padding: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
         }
         nav a {
             color: white; /* White text */
@@ -58,45 +90,44 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
         nav a:hover {
             text-decoration: underline;
         }
-        /* Container styles */
+        /* Container styling */
         .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 30px auto;
             padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .section {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            padding: 10px;
+        h2 {
             text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .event-card {
             border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
-        th {
-            background-color: #1e5bb7;
-            color: white;
+        .event-card h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
         }
-        a {
-            color: #1e5bb7;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+        .event-card p {
+            margin: 5px 0;
         }
         .register-btn {
-            display: inline-block;
-            padding: 8px 15px;
+            padding: 10px 15px;
             background-color: #4caf50;
             color: white;
+            border: none;
             border-radius: 5px;
-            text-decoration: none;
+            font-size: 16px;
             font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
         }
         .register-btn:hover {
             background-color: #45a049;
@@ -107,7 +138,7 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
 
     <!-- Header -->
     <header>
-        <h1>User Dashboard</h1>
+        <h1>Browse Events</h1>
         <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="../auth/logout.php">Logout</a></p>
     </header>
 
@@ -118,45 +149,28 @@ $events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time
         <a href="user_profile.php">Profile</a>
     </nav>
 
-    <!-- Events Table -->
+    <!-- Events List -->
     <div class="container">
-        <div class="section">
-            <h2>Available Events</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Location</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-                <?php if ($events->num_rows > 0): ?>
-                    <?php while ($event = $events->fetch_assoc()): ?>
-                    <tr>
-                        <td><?php echo $event['event_id']; ?></td>
-                        <td><?php echo htmlspecialchars($event['event_name']); ?></td>
-                        <td><?php echo date('Y-m-d', strtotime($event['event_date'])); ?></td>
-                        <td><?php echo date('H:i', strtotime($event['event_time'])); ?></td>
-                        <td><?php echo htmlspecialchars($event['location']); ?></td>
-                        <td><?php echo htmlspecialchars($event['description']); ?></td>
-                        <td>
-                            <form action="register_event.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                <input type="hidden" name="event_id" value="<?php echo $event['event_id']; ?>">
-                                <button type="submit" class="register-btn">Register</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="7">No events found.</td>
-                    </tr>
-                <?php endif; ?>
-            </table>
-        </div>
+        <h2>Available Events</h2>
+        
+        <?php if (!empty($events)): ?>
+            <?php foreach ($events as $event): ?>
+                <div class="event-card">
+                    <h3><?php echo htmlspecialchars($event['event_name']); ?></h3>
+                    <p><strong>Date:</strong> <?php echo date('Y-m-d', strtotime($event['event_date'])); ?></p>
+                    <p><strong>Time:</strong> <?php echo date('H:i', strtotime($event['event_time'])); ?></p>
+                    <p><strong>Location:</strong> <?php echo htmlspecialchars($event['location']); ?></p>
+                    <p><strong>Description:</strong> <?php echo htmlspecialchars($event['description']); ?></p>
+                    <form action="register_event.php" method="POST">
+                        <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                        <input type="hidden" name="event_id" value="<?php echo $event['event_id']; ?>">
+                        <button type="submit" class="register-btn">Register for Event</button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No available events to register.</p>
+        <?php endif; ?>
     </div>
 
 </body>
