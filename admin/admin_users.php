@@ -1,5 +1,17 @@
 <?php
 session_start();
+
+// Display success or error message
+if (isset($_SESSION['success_message'])) {
+    echo "<div class='success-message'>" . $_SESSION['success_message'] . "</div>";
+    unset($_SESSION['success_message']); // Clear message after displaying
+}
+
+if (isset($_SESSION['error_message'])) {
+    echo "<div class='error-message'>" . $_SESSION['error_message'] . "</div>";
+    unset($_SESSION['error_message']); // Clear message after displaying
+}
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
     header('Location: ../auth/login.php');
     exit;
