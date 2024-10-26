@@ -8,25 +8,55 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 // Include database connection
-include 'db_connect.php';
+include 'config/db_connect.php';
 
-// SQL to fetch all events
-$sql = "SELECT event_id, event_name, event_date, event_time, location, description FROM Events";
+// Check database connection
+if (!$conn) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Database connection failed: ' . mysqli_connect_error()
+    ]);
+    exit;
+}
+
+// SQL to fetch all events, including the new fields
+$sql = "SELECT event_id, event_name, event_date, event_time, location, description, organizer_id, location_id FROM Events";
 $result = $conn->query($sql);
 
-// Check if there are events
-if ($result->num_rows > 0) {
+// Check if query was successful
+if ($result) {
     $events = array();
 
-    while ($row = $result->fetch_assoc()) {
-        $events[] = $row;
-    }
+    // Check if there are events
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            // Sanitize output data
+            $row['event_name'] = htmlspecialchars($row['event_name']);
+            $row['location'] = htmlspecialchars($row['location']);
+            $row['description'] = htmlspecialchars($row['description']);
 
-    // Return event data as JSON
-    echo json_encode($events);
+            $events[] = $row;
+        }
+
+        // Return event data as JSON
+        echo json_encode([
+            'success' => true,
+            'data' => $events
+        ]);
+    } else {
+        // No events found
+        echo json_encode([
+            'success' => true,
+            'data' => [],
+            'message' => 'No events found.'
+        ]);
+    }
 } else {
-    // No events found
-    echo json_encode([]);
+    // Query error
+    echo json_encode([
+        'success' => false,
+        'message' => 'Error fetching events: ' . $conn->error
+    ]);
 }
 
 // Close the connection
