@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 25, 2024 at 07:42 AM
+-- Generation Time: Oct 26, 2024 at 02:09 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -63,7 +63,8 @@ INSERT INTO `events` (`event_id`, `event_name`, `event_date`, `event_time`, `loc
 (13, 'Blockchain Meetup', '2024-11-25', '17:00:00', 'Impact Arena', 'An open meetup for blockchain developers and enthusiasts.', 2, NULL),
 (14, 'Digital Marketing Forum', '2024-12-10', '11:00:00', 'CentralWorld, Bangkok', 'Learn the latest strategies in digital marketing from industry experts.', 4, NULL),
 (15, 'Healthcare Innovation Fair', '2025-01-15', '09:30:00', 'Siriraj Hospital', 'Showcasing innovative solutions in healthcare and medical technology.', 3, NULL),
-(16, 'E-Sports Championship', '2024-12-20', '12:00:00', 'Impact Challenger Hall', 'An e-sports event featuring competitive gaming tournaments.', 1, NULL);
+(16, 'E-Sports Championship', '2024-12-20', '12:00:00', 'Impact Challenger Hall', 'An e-sports event featuring competitive gaming tournaments.', 1, NULL),
+(17, 'we', '2024-10-26', '20:20:00', 'bangkadee', 'unity', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,7 +216,7 @@ ALTER TABLE `attendees`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `locations`
@@ -239,7 +240,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
