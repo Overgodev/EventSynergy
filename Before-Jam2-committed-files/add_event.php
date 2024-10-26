@@ -1,39 +1,24 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
-    header('Location: /auth/login.php');
+    header('Location: /auth/login.php'); // Adjusted path for login
     exit;
 }
 
-include '../config/db_connect.php';
+include '../config/db_connect.php'; // Adjusted path for DB connection
 
-// Fetch sponsors for the dropdown
-$sponsor_result = $conn->query("SELECT sponsor_id, sponsor_name FROM sponsors");
-
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $conn->real_escape_string($_POST['event_name']);
     $date = $conn->real_escape_string($_POST['event_date']);
     $time = $conn->real_escape_string($_POST['event_time']);
     $location = $conn->real_escape_string($_POST['location']);
     $description = $conn->real_escape_string($_POST['description']);
-    $sponsor_id = $conn->real_escape_string($_POST['sponsor_id']);  // New sponsor ID
 
-    // Insert event details
-    $sql = "INSERT INTO events (event_name, event_date, event_time, location, description) 
+    $sql = "INSERT INTO Events (event_name, event_date, event_time, location, description) 
             VALUES ('$name', '$date', '$time', '$location', '$description')";
 
     if ($conn->query($sql) === TRUE) {
-        // Get the ID of the newly created event
-        $event_id = $conn->insert_id;
-
-        // Insert into event_sponsors table
-        if ($sponsor_id) {
-            $sql_sponsor = "INSERT INTO event_sponsors (event_id, sponsor_id) VALUES ('$event_id', '$sponsor_id')";
-            $conn->query($sql_sponsor);
-        }
-
-        header('Location: admin_events.php');
+        header('Location: admin_events.php'); // Redirect back to event management
         exit;
     } else {
         $error = "Error: " . $sql . "<br>" . $conn->error;
@@ -41,16 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Event</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css"> <!-- Adjusted path for CSS -->
     <style>
-        /* Styling here */
         .container {
             margin: 20px;
         }
@@ -92,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
+
     <!-- Header -->
     <header>
         <h1>Add Event</h1>
@@ -127,18 +111,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4" required></textarea>
 
-                <!-- New Sponsor Selection -->
-                <label for="sponsor_id">Sponsor:</label>
-                <select id="sponsor_id" name="sponsor_id">
-                    <option value="">-- Select Sponsor --</option>
-                    <?php while ($sponsor = $sponsor_result->fetch_assoc()): ?>
-                        <option value="<?php echo $sponsor['sponsor_id']; ?>"><?php echo $sponsor['sponsor_name']; ?></option>
-                    <?php endwhile; ?>
-                </select>
-
                 <button type="submit">Add Event</button>
             </form>
         </div>
     </div>
+
 </body>
 </html>

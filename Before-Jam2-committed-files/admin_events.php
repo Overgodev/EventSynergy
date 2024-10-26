@@ -6,14 +6,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
 }
 include '../config/db_connect.php';
 
-// Fetch all events with sponsors
-$events = $conn->query("
-    SELECT Events.event_id, Events.event_name, Events.event_date, Events.event_time, Events.location, Sponsors.sponsor_name
-    FROM Events
-    LEFT JOIN event_sponsors ON Events.event_id = event_sponsors.event_id
-    LEFT JOIN sponsors ON event_sponsors.sponsor_id = sponsors.sponsor_id
-    ORDER BY event_date ASC, event_time ASC
-");
+// Fetch all events
+$events = $conn->query("SELECT * FROM Events ORDER BY event_date ASC, event_time ASC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,7 +131,6 @@ $events = $conn->query("
                     <th>Date</th>
                     <th>Time</th>
                     <th>Location</th>
-                    <th>Sponsor</th> <!-- New Sponsor column -->
                     <th>Actions</th>
                 </tr>
                 <?php if ($events->num_rows > 0): ?>
@@ -148,7 +141,6 @@ $events = $conn->query("
                         <td><?php echo date('Y-m-d', strtotime($event['event_date'])); ?></td>
                         <td><?php echo date('H:i', strtotime($event['event_time'])); ?></td>
                         <td><?php echo htmlspecialchars($event['location']); ?></td>
-                        <td><?php echo htmlspecialchars($event['sponsor_name'] ?? '-'); ?></td> <!-- Display sponsor or '-' if no sponsor -->
                         <td>
                             <a href="edit_event.php?id=<?php echo $event['event_id']; ?>">Edit</a> |
                             <a href="delete_event.php?id=<?php echo $event['event_id']; ?>" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a>
@@ -157,7 +149,7 @@ $events = $conn->query("
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">No events found.</td>
+                        <td colspan="6">No events found.</td>
                     </tr>
                 <?php endif; ?>
             </table>
