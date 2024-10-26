@@ -6,11 +6,6 @@ Welcome to the **Event Management System**! This web application is designed to 
 - [Overview](#overview)
 - [Features](#features)
 - [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 The **Event Management System** is a PHP-based web application that allows users to browse, register for, and manage events. It supports two types of users:
