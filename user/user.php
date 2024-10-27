@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
     <title>Browse Events</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        /* Header styling */
+                /* Header styling */
         header {
             background-color: #1e5bb7; /* Dark blue */
             color: white; /* White text */
@@ -71,9 +71,10 @@ if ($result->num_rows > 0) {
         header a:hover {
             text-decoration: underline;
         }
+
         /* Navigation bar styling */
         nav {
-            background-color: #1e5bb7; /* Dark blue */
+            background-color: #252525; /* Dark blue */
             display: flex;
             justify-content: center;
             padding: 10px 0;
@@ -90,37 +91,48 @@ if ($result->num_rows > 0) {
         nav a:hover {
             text-decoration: underline;
         }
+
         /* Container styling */
         .container {
             width: 80%;
             max-width: 1200px;
             margin: 30px auto;
             padding: 20px;
-            background-color: white;
+            background-color: #333333; /* Dark grey background */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        /* Heading styling */
         h2 {
             text-align: center;
             margin-bottom: 20px;
             font-size: 24px;
+            color: #ffffff; /* White text for headers */
         }
+
+        /* Event card styles */
         .event-card {
-            border: 1px solid #ccc;
+            border: 1px solid #555555; /* Dark grey border */
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
+            background-color: #444444; /* Dark grey background */
         }
         .event-card h3 {
             margin: 0 0 10px;
             font-size: 20px;
+            color: #0098ff; /* Cyan for event titles */
         }
         .event-card p {
             margin: 5px 0;
+            color: #ffffff; /* White text for event descriptions */
         }
+
+        /* Register button styling */
         .register-btn {
             padding: 10px 15px;
-            background-color: #4caf50;
+            background-color: #4caf50; /* Green */
             color: white;
             border: none;
             border-radius: 5px;
@@ -130,8 +142,9 @@ if ($result->num_rows > 0) {
             margin-top: 10px;
         }
         .register-btn:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Darker green on hover */
         }
+
     </style>
 </head>
 <body>

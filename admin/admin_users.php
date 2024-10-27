@@ -30,84 +30,90 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
     <title>Manage Users</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        /* Header styling */
-header {
-    background-color: #00bcd4; /* Cyan */
-    color: white; /* White text */
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-header h1 {
-    margin: 0;
-}
-header p {
-    margin: 0;
-}
-header a {
-    color: white; /* White text for logout link */
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: 15px;
-}
-header a:hover {
-    text-decoration: underline;
-}
+                /* Header styling */
+        header {
+            background-color: #0065a9; /* Dark cyan */
+            color: white; /* White text */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header p {
+            margin: 0;
+        }
+        header a {
+            color: white; /* White text for logout link */
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
 
-/* Navigation bar styling */
+        /* Navigation bar styling */
+        nav {
+            background-color: #1e1e1e; /* Dark grey for nav */
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white; /* White text */
+            font-weight: bold;
+            margin: 0 20px;
+            text-decoration: none; /* No underline */
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
 
-nav a {
-    color: white; /* White text */
-    font-weight: bold;
-    margin: 0 20px;
-    text-decoration: none; /* No underline */
-    font-size: 18px;
-}
-nav a:hover {
-    text-decoration: underline;
-}
+        /* Container styles */
+        .container {
+            padding: 20px;
+            background-color: #333333; /* Dark grey background for container */
+        }
 
-/* Container styles */
-.container {
-    padding: 20px;
-    background-color: #333333; /* Dark grey background for container */
-}
+        .section {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #555555; /* Dark grey border */
+            border-radius: 5px;
+            background-color: #444444; /* Slightly lighter dark grey for section background */
+        }
 
-.section {
-    margin: 20px 0;
-    padding: 10px;
-    border: 1px solid #555555; /* Dark grey border */
-    border-radius: 5px;
-    background-color: #444444; /* Dark grey for section background */
-}
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px; /* Added margin for spacing */
+        }
 
-/* Table styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px; /* Added margin for spacing */
-}
+        th, td {
+            padding: 10px;
+            border: 1px solid #555555; /* Dark grey border for table cells */
+            text-align: left;
+        }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #555555; /* Dark grey border for table cells */
-    text-align: left;
-}
+        th {
+            background-color: #0065a9; /* Dark cyan for table header */
+            color: white; /* White text for header */
+        }
 
-th {
-    background-color: #00bcd4; /* Cyan for table header */
-    color: white; /* White text for header */
-}
+        /* Link styles */
+        a {
+            color: #0098ff; /* Cyan for links */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
 
-/* Link styles */
-a {
-    color: #00bcd4; /* Cyan for links */
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
 
     </style>
 </head>

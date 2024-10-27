@@ -47,18 +47,13 @@ $userType = $isLoggedIn ? $_SESSION['user_type'] : '';
             text-align: center;
         }
         h1 {
-            color: #1e5bb7;
+            color: #0098ff;
         }
         p {
             margin: 10px 0;
             font-size: 18px;
         }
-        footer {
-            background-color: #f5f5f5;
-            padding: 10px;
-            text-align: center;
-            margin-top: 20px;
-        }
+        
     </style>
 </head>
 <body>

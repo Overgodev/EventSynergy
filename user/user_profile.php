@@ -74,9 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header a:hover {
             text-decoration: underline;
         }
+
         /* Navigation bar styling */
         nav {
-            background-color: #1e5bb7; /* Dark blue */
+            background-color: #252525; /* Dark blue */
             display: flex;
             justify-content: center;
             padding: 10px 0;
@@ -93,9 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         nav a:hover {
             text-decoration: underline;
         }
-        /* Form container styling */
+
+        /* Body styling */
         body {
-            background-color: #f4f4f4;
+            background-color: #1e1e1e; /* Light grey */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -103,6 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding: 0;
             min-height: 100vh;
         }
+
+        /* Form container styling */
         .form-container {
             display: flex;
             justify-content: center;
@@ -110,19 +114,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             flex-grow: 1;
             width: 100%;
         }
+
         .container {
             width: 400px;
-            background-color: white;
+            background-color: #333333; /* White background */
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin: 30px auto;
         }
+
+        /* Heading styling */
         h2 {
             text-align: center;
             margin-bottom: 20px;
             font-size: 24px;
+            color: #f4f4f4; /* Dark blue for headings */
         }
+
+        /* Form group styles */
         .form-group {
             margin-bottom: 20px;
         }
@@ -135,14 +145,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid #ccc; /* Light grey border */
             border-radius: 5px;
             font-size: 16px;
         }
+
+        /* Button styling */
         .btn {
             width: 100%;
             padding: 12px;
-            background-color: #4caf50;
+            background-color: #4caf50; /* Green */
             color: white;
             border: none;
             border-radius: 5px;
@@ -152,20 +164,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-top: 10px;
         }
         .btn:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Darker green on hover */
         }
+
+        /* Message styling */
         .success-message {
-            color: green;
+            color: green; /* Green for success messages */
             font-weight: bold;
             margin-bottom: 10px;
             text-align: center;
         }
         .error-message {
-            color: red;
+            color: red; /* Red for error messages */
             font-weight: bold;
             margin-bottom: 10px;
             text-align: center;
         }
+
     </style>
 </head>
 <body>

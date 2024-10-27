@@ -87,6 +87,7 @@ $total_registered_events = count($registered_events);
         header a:hover {
             text-decoration: underline;
         }
+
         /* Navigation bar styling */
         nav {
             background-color: #1e5bb7; /* Dark blue */
@@ -106,16 +107,19 @@ $total_registered_events = count($registered_events);
         nav a:hover {
             text-decoration: underline;
         }
+
         /* Dashboard container styling */
         .container {
             width: 80%;
             max-width: 1200px;
             margin: 30px auto;
             padding: 20px;
-            background-color: white; /* White background for the main container */
+            background-color: #333333; /* White background for the main container */
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light gray shadow for container */
         }
+
+        /* Summary section styling */
         .summary {
             display: flex;
             justify-content: space-between;
@@ -124,17 +128,22 @@ $total_registered_events = count($registered_events);
         }
         .summary div {
             padding: 15px;
-            background-color: #f0f0f0; /* Light gray background for summary box */
+            background-color: #282828; /* Light gray background for summary box */
+            border-color : #444444;
             border-radius: 5px;
             text-align: center;
             font-size: 20px;
             font-weight: bold;
         }
+
+        /* Section heading styling */
         h2 {
             text-align: center;
             margin-bottom: 20px;
             font-size: 24px;
+            color: #f4f4f4; /* Dark blue for section headings */
         }
+
         /* Horizontal event box container */
         .horizontal-container {
             display: flex;
@@ -143,28 +152,33 @@ $total_registered_events = count($registered_events);
             padding: 20px 0;
             scroll-behavior: smooth;
         }
+
+        /* Event box styling */
         .event-box {
             flex: 0 0 auto;
             width: 250px;
-            border: 1px solid #1e5bb7; /* Dark blue border */
+            border: 1px solid #555555; /* Dark blue border */
             padding: 15px;
             border-radius: 8px;
-            background-color: #f9f9f9; /* Light gray background */
+            background-color: #444444; /* Light gray background */
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
         }
         .event-box h3 {
             margin: 0 0 10px;
-            color: #1e5bb7; /* Dark blue for event title */
+            color: #0098ff; /* Dark blue for event title */
         }
         .event-box p {
             margin: 5px 0;
         }
+
+        /* No events message styling */
         .no-events-message {
             font-size: 20px;
-            color: #777; /* Gray text for no event message */
+            color: #f4f4f4; /* Gray text for no event message */
             text-align: center;
             margin-top: 20px;
         }
+
     </style>
 </head>
 <body>
