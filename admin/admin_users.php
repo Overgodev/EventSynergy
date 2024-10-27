@@ -31,76 +31,84 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         /* Header styling */
-        header {
-            background-color: #1e5bb7; /* Dark blue */
-            color: white; /* White text */
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        header p {
-            margin: 0;
-        }
-        header a {
-            color: white; /* White text for logout link */
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 15px;
-        }
-        header a:hover {
-            text-decoration: underline;
-        }
-        /* Navigation bar styling */
-        nav {
-            background-color: #1e5bb7; /* Dark blue */
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav a {
-            color: white; /* White text */
-            font-weight: bold;
-            margin: 0 20px;
-            text-decoration: none; /* No underline */
-            font-size: 18px;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        /* Container styles */
-        .container {
-            padding: 20px;
-        }
-        .section {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: left;
-        }
-        th {
-            background-color: #1e5bb7;
-            color: white;
-        }
-        a {
-            color: #1e5bb7;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+header {
+    background-color: #00bcd4; /* Cyan */
+    color: white; /* White text */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 {
+    margin: 0;
+}
+header p {
+    margin: 0;
+}
+header a {
+    color: white; /* White text for logout link */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 15px;
+}
+header a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation bar styling */
+
+nav a {
+    color: white; /* White text */
+    font-weight: bold;
+    margin: 0 20px;
+    text-decoration: none; /* No underline */
+    font-size: 18px;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Container styles */
+.container {
+    padding: 20px;
+    background-color: #333333; /* Dark grey background for container */
+}
+
+.section {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #555555; /* Dark grey border */
+    border-radius: 5px;
+    background-color: #444444; /* Dark grey for section background */
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px; /* Added margin for spacing */
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #555555; /* Dark grey border for table cells */
+    text-align: left;
+}
+
+th {
+    background-color: #00bcd4; /* Cyan for table header */
+    color: white; /* White text for header */
+}
+
+/* Link styles */
+a {
+    color: #00bcd4; /* Cyan for links */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
     </style>
 </head>
 <body>

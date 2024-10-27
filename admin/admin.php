@@ -31,108 +31,121 @@ while ($row = $events->fetch_assoc()) {
     <link rel="stylesheet" href="/assets/css/style.css">
     <style>
         /* Header styling */
-        header {
-            background-color: #1e5bb7; /* Dark blue */
-            color: white; /* White text */
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        header p {
-            margin: 0;
-        }
-        header a {
-            color: white; /* White text for logout link */
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 15px;
-        }
-        header a:hover {
-            text-decoration: underline;
-        }
-        /* Navigation bar styling */
-        nav {
-            background-color: #1e5bb7; /* Dark blue */
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav a {
-            color: white; /* White text */
-            font-weight: bold;
-            margin: 0 20px;
-            text-decoration: none; /* No underline */
-            font-size: 18px;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        /* Layout Styles */
-        .container {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .section {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        /* Calendar Styles */
-        .calendar-container {
-            margin-top: 10px;
-        }
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            padding: 10px;
-        }
-        .day {
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #ccc;
-            position: relative;
-            flex-direction: column;
-        }
-        .event {
-            background-color: #ffeb3b;
-            color: #000;
-            font-size: 12px;
-            padding: 2px;
-            margin-top: 5px;
-            border-radius: 3px;
-            text-align: center;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-        .today {
-            background-color: #90caf9;
-        }
-        /* Responsive Styles */
-        @media (min-width: 768px) {
-            .container {
-                flex-direction: row;
-                align-items: flex-start;
-            }
-            .users-section {
-                flex: 2;
-            }
-            .calendar-container {
-                flex: 1;
-                margin-left: 20px;
-            }
-        }
+header {
+    background-color: #00bcd4; /* Cyan */
+    color: white; /* White text */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 {
+    margin: 0;
+}
+header p {
+    margin: 0;
+}
+header a {
+    color: white; /* White text for logout link */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 15px;
+}
+header a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation bar styling */
+nav {
+    background-color: #08454c; /* Darker cyan for nav */
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+nav a {
+    color: white; /* White text */
+    font-weight: bold;
+    margin: 0 20px;
+    text-decoration: none; /* No underline */
+    font-size: 18px;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Layout Styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #333333; /* Dark grey background for container */
+}
+
+.section {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #555555; /* Dark grey border */
+    border-radius: 5px;
+    background-color: #444444; /* Dark grey for section background */
+}
+
+/* Calendar Styles */
+.calendar-container {
+    margin-top: 10px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 10px;
+}
+
+.day {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #555555; /* Dark grey border for each day */
+    position: relative;
+    flex-direction: column;
+    background-color: #222222; /* Dark background for calendar days */
+}
+
+.event {
+    background-color: #ffeb3b; /* Yellow for events */
+    color: #000; /* Black text for event */
+    font-size: 12px;
+    padding: 2px;
+    margin-top: 5px;
+    border-radius: 3px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.today {
+    background-color: #90caf9; /* Light blue for today's date */
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .users-section {
+        flex: 2;
+    }
+    .calendar-container {
+        flex: 1;
+        margin-left: 20px;
+    }
+}
+
     </style>
 </head>
 <body>

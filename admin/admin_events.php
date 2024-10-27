@@ -25,7 +25,7 @@ $events = $conn->query("
     <style>
         /* Header styling */
         header {
-            background-color: #1e5bb7; /* Dark blue */
+            background-color: #00bcd4; /* Cyan for the header */
             color: white; /* White text */
             padding: 10px 20px;
             display: flex;
@@ -47,9 +47,10 @@ $events = $conn->query("
         header a:hover {
             text-decoration: underline;
         }
+
         /* Navigation bar styling */
         nav {
-            background-color: #1e5bb7; /* Dark blue */
+            background-color: #08454c; /* Darker cyan for nav */
             display: flex;
             justify-content: center;
             padding: 10px 0;
@@ -64,50 +65,57 @@ $events = $conn->query("
         nav a:hover {
             text-decoration: underline;
         }
+
         /* Container styles */
         .container {
             padding: 20px;
         }
+
         .section {
             margin: 20px 0;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #555555; /* Dark grey border */
             border-radius: 5px;
+            background-color: #333333; /* Dark grey background for sections */
         }
+
+        /* Table styles */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
+
         th, td {
             padding: 10px;
             text-align: center;
-            border: 1px solid #ccc;
+            border: 1px solid #555555; /* Dark grey border for table cells */
         }
-        th {
-            background-color: #1e5bb7;
-            color: white;
-        }
+
+       
         a {
-            color: #1e5bb7;
+            color: #00bcd4; /* Cyan links */
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
         }
+
+        /* Add button styles */
         .add-btn {
             display: inline-block;
             margin-top: 10px;
             padding: 8px 15px;
-            background-color: #4caf50;
+            background-color: #4caf50; /* Green for add button */
             color: white;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
         }
         .add-btn:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Darker green on hover */
         }
+
     </style>
 </head>
 <body>
