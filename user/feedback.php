@@ -8,29 +8,35 @@
 </head>
 <body>
 
+<!-- Header -->
 <header>
-    <h1>Event Feedback</h1>
-</header>
+        <h1>Event Management System</h1>
+    </header>
 
-<div class="container">
-    <h2>Share Your Feedback</h2>
-    <form action="" method="POST">
-        <div class="form-group">
-            <label for="event">Select Event:</label>
-            <select id="event" name="event" required>
-                <option value="">Select an event</option>
-                <!-- Populate with events from your database -->
-                <option value="1">Event 1</option>
-                <option value="2">Event 2</option>
-                <option value="3">Event 3</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="feedback">Feedback:</label>
-            <textarea id="feedback" name="feedback" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn">Submit Feedback</button>
-    </form>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.php">Home</a>
+        <a href="register.html">Register</a>
+        <a href="events.html">Browse Events</a>
+        <a href="feedback.html">Feedback</a>
+    </nav>
+    
+    <!-- Feedback Form -->
+    <div class="container">
+        <div class="section" id="feedback">
+            <h2>Event Feedback</h2>
+            <form action="feedback.php" method="POST">
+                <label for="event">Event Attended:</label>
+                <select id="event" name="event">
+                    <option value="1">Tech Conference 2024</option>
+                    <option value="2">Startup Expo 2024</option>
+                </select>
+
+                <label for="feedback">Your Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="4" required></textarea>
+
+                <button type="submit">Submit Feedback</button>
+            </form>
 
 <?php
 include 'db_connect.php';
