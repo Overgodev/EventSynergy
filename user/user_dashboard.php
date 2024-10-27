@@ -90,7 +90,7 @@ $total_registered_events = count($registered_events);
 
         /* Navigation bar styling */
         nav {
-            background-color: #1e5bb7; /* Dark blue */
+            background-color: #252525; /* Dark blue */
             display: flex;
             justify-content: center;
             padding: 10px 0;
