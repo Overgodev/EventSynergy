@@ -107,7 +107,7 @@ while ($row = $events->fetch_assoc()) {
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #1e1e1e; /* Dark grey border for each day */
+            border: 1px solid white; /* Dark grey border for each day */
             position: relative;
             flex-direction: column;
             background-color: #252525; /* Dark background for calendar days */
