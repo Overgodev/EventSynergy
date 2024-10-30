@@ -1,32 +1,46 @@
 <?php
 session_start();
+
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Check if user is logged in and has 'User' type
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'User') {
     header('Location: ../auth/login.php');
     exit;
 }
 
+// Include database connection file
 include '../config/db_connect.php';
 
-// Get current user ID
-$user_id = $_SESSION['user_id'];
+// Verify the database connection
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
 
-// Fetch registered events for the user
+// Get current user ID and date
+$user_id = $_SESSION['user_id'];
+$current_date = date('Y-m-d');
+
+// Fetch upcoming registered events for the user
 $registered_query = "
     SELECT e.event_id, e.event_name, e.event_date, e.event_time, e.location, e.description
     FROM events e
     INNER JOIN attendees a ON e.event_id = a.event_id
-    WHERE a.user_id = ?
+    WHERE a.user_id = ? AND e.event_date >= ?
     ORDER BY e.event_date ASC, e.event_time ASC";
 
 $registered_stmt = $conn->prepare($registered_query);
 if (!$registered_stmt) {
-    die("Error preparing the statement: " . $conn->error);
+    die("Error preparing registered events query: " . $conn->error);
 }
-$registered_stmt->bind_param("i", $user_id);
+
+$registered_stmt->bind_param("is", $user_id, $current_date);
 $registered_stmt->execute();
 $registered_result = $registered_stmt->get_result();
 
-// Prepare list of registered events
+// Prepare list of upcoming registered events
 $registered_events = [];
 if ($registered_result->num_rows > 0) {
     while ($row = $registered_result->fetch_assoc()) {
@@ -34,15 +48,23 @@ if ($registered_result->num_rows > 0) {
     }
 }
 
-// Fetch all events
+// Fetch all upcoming events
 $all_events_query = "
     SELECT event_id, event_name, event_date, event_time, location, description
     FROM events
+    WHERE event_date >= ?
     ORDER BY event_date ASC, event_time ASC";
 
-$all_events_result = $conn->query($all_events_query);
+$all_events_stmt = $conn->prepare($all_events_query);
+if (!$all_events_stmt) {
+    die("Error preparing all events query: " . $conn->error);
+}
 
-// Prepare list of all events
+$all_events_stmt->bind_param("s", $current_date);
+$all_events_stmt->execute();
+$all_events_result = $all_events_stmt->get_result();
+
+// Prepare list of all upcoming events
 $all_events = [];
 if ($all_events_result->num_rows > 0) {
     while ($row = $all_events_result->fetch_assoc()) {
@@ -61,8 +83,8 @@ $total_registered_events = count($registered_events);
     <title>User Dashboard</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        /* Header styling */
-        header {
+             /* Header styling */
+             header {
             background-color: #1e5bb7; /* Dark blue */
             color: white; /* White text */
             padding: 10px 20px;
@@ -178,7 +200,6 @@ $total_registered_events = count($registered_events);
             text-align: center;
             margin-top: 20px;
         }
-
     </style>
 </head>
 <body>
@@ -220,11 +241,11 @@ $total_registered_events = count($registered_events);
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <div class="no-events-message">You are not registered for any events.</div>
+            <div class="no-events-message">You are not registered for any upcoming events.</div>
         <?php endif; ?>
 
         <!-- All Events Section -->
-        <h2>All Events</h2>
+        <h2>All Upcoming Events</h2>
         <?php if (!empty($all_events)): ?>
             <div class="horizontal-container">
                 <?php foreach ($all_events as $event): ?>
@@ -238,9 +259,17 @@ $total_registered_events = count($registered_events);
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
-            <div class="no-events-message">No events available.</div>
+            <div class="no-events-message">No upcoming events available.</div>
         <?php endif; ?>
     </div>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
