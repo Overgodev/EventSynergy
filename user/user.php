@@ -165,7 +165,7 @@ if ($result->num_rows > 0) {
     <!-- Events List -->
     <div class="container">
         <h2>Available Events</h2>
-        
+         
         <?php if (!empty($events)): ?>
             <?php foreach ($events as $event): ?>
                 <div class="event-card">

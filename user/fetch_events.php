@@ -8,7 +8,7 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 // Include database connection
-include 'config/db_connect.php';
+include '../config/db_connect.php';
 
 // Check database connection
 if (!$conn) {
