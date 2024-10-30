@@ -4,14 +4,19 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
     header('Location: /auth/login.php');
     exit;
 }
+
 include '../config/db_connect.php';
 
-// Fetch all events with sponsors
+// Get the current date
+$current_date = date('Y-m-d');
+
+// Fetch only upcoming events with sponsors
 $events = $conn->query("
     SELECT Events.event_id, Events.event_name, Events.event_date, Events.event_time, Events.location, Sponsors.sponsor_name
     FROM Events
     LEFT JOIN event_sponsors ON Events.event_id = event_sponsors.event_id
     LEFT JOIN sponsors ON event_sponsors.sponsor_id = sponsors.sponsor_id
+    WHERE Events.event_date >= '$current_date'
     ORDER BY event_date ASC, event_time ASC
 ");
 ?>
@@ -48,8 +53,8 @@ $events = $conn->query("
             text-decoration: underline;
         }
 
-        /* Navigation bar styling */
-        nav {
+         /* Navigation bar styling */
+         nav {
             background-color: #1e1e1e; /* Dark cyan */
             display: flex;
             justify-content: center;
@@ -79,6 +84,7 @@ $events = $conn->query("
             border-radius: 5px;
             background-color: #444444; /* Dark grey for section background */
         }
+
 
         /* Table styles */
         table {
@@ -121,7 +127,6 @@ $events = $conn->query("
         .add-btn:hover {
             background-color: #0065a9; /* Dark cyan */
         }
-
 
     </style>
 </head>
@@ -172,7 +177,7 @@ $events = $conn->query("
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">No events found.</td>
+                        <td colspan="7">No upcoming events found.</td>
                     </tr>
                 <?php endif; ?>
             </table>
