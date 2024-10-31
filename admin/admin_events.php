@@ -143,6 +143,8 @@ $events = $conn->query("
         <a href="/admin/admin.php">Dashboard</a>
         <a href="/admin/admin_events.php">Manage Events</a>
         <a href="/admin/admin_users.php">Manage Users</a>
+        <a href="/admin/admin_sponsors.php">Manage Sponsors</a> <!-- New link for managing sponsors -->
+        <a href="/admin/admin_locations.php">Manage Locations</a> <!-- New link for managing locations -->
     </nav>
 
     <!-- Events Table -->
