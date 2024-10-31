@@ -1,26 +1,28 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Admin') {
-    header('Location: /auth/login.php'); // Adjusted path for login
+    header('Location: /auth/login.php');
     exit;
 }
 
-include '../config/db_connect.php'; // Adjusted path for DB connection
+include '../config/db_connect.php';
 
+// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $conn->real_escape_string($_POST['username']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $plain_password = $conn->real_escape_string($_POST['password']);
-    $user_type = $conn->real_escape_string($_POST['user_type']);
+    $location_name = $conn->real_escape_string($_POST['location_name']);
+    $address = $conn->real_escape_string($_POST['address']);
+    $city = $conn->real_escape_string($_POST['city']);
+    $state = $conn->real_escape_string($_POST['state']);
+    $zip_code = $conn->real_escape_string($_POST['zip_code']);
+    $max_capacity = $conn->real_escape_string($_POST['max_capacity']); // For storing maximum capacity
 
-    // Hash the password before storing it
-    $hashed_password = password_hash($plain_password, PASSWORD_DEFAULT);
-
-    $sql = "INSERT INTO Users (username, email, password, user_type) 
-            VALUES ('$username', '$email', '$hashed_password', '$user_type')";
+    // Insert location details into the database
+    $sql = "INSERT INTO Locations (location_name, address, city, state, zip_code, capacity) 
+        VALUES ('$location_name', '$address', '$city', '$state', '$zip_code', '$capacity')";
 
     if ($conn->query($sql) === TRUE) {
-        header('Location: admin_users.php'); // Redirect to user management
+        $_SESSION['success_message'] = "Location added successfully!";
+        header('Location: admin_locations.php');
         exit;
     } else {
         $error = "Error: " . $sql . "<br>" . $conn->error;
@@ -33,33 +35,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User</title>
-    <link rel="stylesheet" href="/assets/css/style2.css"> <!-- Adjusted path for CSS -->
+    <title>Add Location</title>
+    <link rel="stylesheet" href="../assets/css/style2.css">
     <style>
         /* Header styling */
         header {
-            background-color: #0065a9; /* Dark cyan for consistency */
+            background-color: #0065a9;
             color: white;
-            padding: 15px 20px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: Arial, sans-serif;
         }
         header h1 {
             margin: 0;
-            font-size: 24px;
         }
         header p {
             margin: 0;
-            font-size: 16px;
         }
         header a {
             color: white;
             text-decoration: none;
             font-weight: bold;
             margin-left: 15px;
-            font-size: 16px;
         }
         header a:hover {
             text-decoration: underline;
@@ -84,27 +82,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-decoration: underline;
         }
 
-        /* Main Content */
+        /* Container and Form Styles */
         .container {
-            margin: 20px;
+            padding: 20px;
+            background-color: #333333;
         }
         .section {
+            margin: 20px 0;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #555555;
             border-radius: 5px;
-            max-width: 500px;
-            margin: auto;
-            background-color: #252525;
-            color: #ffffff;
+            background-color: #444444;
         }
         label {
             display: block;
             margin-top: 10px;
             font-weight: bold;
+            color: #ffffff;
         }
-        input[type="text"], input[type="email"], input[type="password"], select {
+        input[type="text"], input[type="number"] {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-top: 5px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
@@ -112,6 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: #333333;
             color: #ffffff;
         }
+
+        /* Button Styling */
         button {
             padding: 10px 20px;
             background-color: #4caf50;
@@ -119,6 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
         }
         button:hover {
             background-color: #45a049;
@@ -133,8 +134,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Header -->
     <header>
-        <h1>Add User</h1>
-        <p>Admin Panel</p>
+        <h1>Add Location</h1>
+        <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="/auth/logout.php">Logout</a></p>
     </header>
 
     <!-- Navigation -->
@@ -146,30 +147,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="/admin/admin_locations.php">Manage Locations</a>
     </nav>
 
-    <!-- Add User Form -->
+    <!-- Add Location Form -->
     <div class="container">
         <div class="section">
-            <h2>Create New User</h2>
+            <h2>Create New Location</h2>
             <?php if (isset($error)): ?>
                 <p class="error"><?php echo $error; ?></p>
             <?php endif; ?>
-            <form action="add_user.php" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+            <form action="add_location.php" method="POST">
+                <label for="location_name">Location Name:</label>
+                <input type="text" id="location_name" name="location_name" required>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
 
-                <label for="user_type">Role:</label>
-                <select id="user_type" name="user_type" required>
-                    <option value="Admin">Admin</option>
-                    <option value="User">User</option>
-                </select>
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" required>
 
-                <button type="submit">Add User</button>
+                <label for="zip_code">Zip Code:</label>
+                <input type="text" id="zip_code" name="zip_code" required>
+
+                <label for="max_capacity">Max Capacity:</label>
+                <input type="number" id="max_capacity" name="max_capacity" required>
+
+                <button type="submit">Add Location</button>
             </form>
         </div>
     </div>
