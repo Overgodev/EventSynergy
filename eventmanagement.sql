@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 30, 2024 at 04:19 AM
+-- Generation Time: Oct 31, 2024 at 01:14 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -61,35 +61,74 @@ CREATE TABLE `events` (
   `location` varchar(100) DEFAULT NULL,
   `description` text,
   `organizer_id` int(11) DEFAULT NULL,
-  `location_id` int(11) DEFAULT NULL
+  `location_id` int(11) DEFAULT NULL,
+  `max_attendance` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`event_id`, `event_name`, `event_date`, `event_time`, `location`, `description`, `organizer_id`, `location_id`) VALUES
-(9, 'Tech Conference 2024', '2024-11-15', '09:00:00', 'Bangkok Convention Center', 'An event for tech enthusiasts to learn and network.', 1, NULL),
-(10, 'Startup Expo 2024', '2024-12-05', '10:00:00', 'Virtual Event', 'A virtual event showcasing innovative startups.', 1, NULL),
-(11, 'AI Workshop', '2024-10-30', '14:00:00', 'Chulalongkorn University', 'A hands-on workshop to explore AI and machine learning concepts.', 2, NULL),
-(12, 'Cybersecurity Summit', '2024-11-20', '08:30:00', 'Queen Sirikit National Convention Center', 'Discussions on the latest trends in cybersecurity and data protection.', 3, NULL),
-(13, 'Blockchain Meetup', '2024-11-25', '17:00:00', 'Impact Arena', 'An open meetup for blockchain developers and enthusiasts.', 2, NULL),
-(14, 'Digital Marketing Forum', '2024-12-10', '11:00:00', 'CentralWorld, Bangkok', 'Learn the latest strategies in digital marketing from industry experts.', 4, NULL),
-(15, 'Healthcare Innovation Fair', '2025-01-15', '09:30:00', 'Siriraj Hospital', 'Showcasing innovative solutions in healthcare and medical technology.', 3, NULL),
-(16, 'E-Sports Championship', '2024-12-20', '12:00:00', 'Impact Challenger Hall', 'An e-sports event featuring competitive gaming tournaments.', 1, NULL),
-(17, 'we', '2024-10-26', '20:20:00', 'bangkadee', 'unity', NULL, NULL),
-(42, 'AI & Robotics Expo', '2025-01-10', '13:00:00', 'Robotics Innovation Center', 'Exhibition on AI and robotics technologies.', 3, 8),
-(43, 'Web Development Bootcamp', '2025-02-05', '09:00:00', 'Web Dev Hub', 'Intensive bootcamp for learning web development skills.', 5, 10),
-(44, 'IoT Conference', '2025-02-15', '10:00:00', 'Smart City Convention Center', 'Discussing innovations in the Internet of Things.', 1, 11),
-(45, 'Big Data Analytics Meet', '2025-03-01', '15:00:00', 'Data Hub Building', 'Meetup focusing on big data analytics and tools.', 2, 12),
-(46, 'AR/VR Summit', '2025-03-10', '11:30:00', 'Virtual Reality Center', 'Event showcasing AR and VR technologies.', 3, 13),
-(47, 'Mobile App Hackathon', '2025-03-25', '08:00:00', 'Tech Hub Building', '24-hour hackathon to build innovative mobile apps.', 4, 14),
-(48, 'Cloud Computing Expo', '2025-04-05', '14:30:00', 'Cloud Innovation Center', 'Expo on cloud technologies and services.', 5, 15),
-(49, 'AI in Finance Summit', '2025-04-20', '09:00:00', 'Finance Tech Auditorium', 'Exploring AI applications in the financial sector.', 1, 16),
-(50, 'Data Science Workshop', '2025-05-10', '13:00:00', 'Data Science Hub', 'Hands-on workshop for data science enthusiasts.', 2, 17),
-(51, 'Quantum Computing Conference', '2025-05-25', '14:00:00', 'Quantum Innovation Hall', 'Discussing breakthroughs in quantum computing.', 3, 18),
-(52, 'Green Tech Expo', '2025-06-05', '11:00:00', 'Green Tech Center', 'Showcasing sustainable and eco-friendly technologies.', 4, 19),
-(53, 'Ethical Hacking Workshop', '2025-06-20', '09:30:00', 'Cyber Defense Auditorium', 'Workshop on ethical hacking techniques and tools.', 5, 20);
+INSERT INTO `events` (`event_id`, `event_name`, `event_date`, `event_time`, `location`, `description`, `organizer_id`, `location_id`, `max_attendance`) VALUES
+(9, 'Tech Conference 2024', '2024-11-15', '09:00:00', 'Bangkok Convention Center', 'An event for tech enthusiasts to learn and network.', 1, NULL, 100),
+(10, 'Startup Expo 2024', '2024-12-05', '10:00:00', 'Virtual Event', 'A virtual event showcasing innovative startups.', 1, NULL, 200),
+(11, 'AI Workshop', '2024-10-30', '14:00:00', 'Chulalongkorn University', 'A hands-on workshop to explore AI and machine learning concepts.', 2, NULL, 150),
+(12, 'Cybersecurity Summit', '2024-11-20', '08:30:00', 'Queen Sirikit National Convention Center', 'Discussions on the latest trends in cybersecurity and data protection.', 3, NULL, 300),
+(13, 'Blockchain Meetup', '2024-11-25', '17:00:00', 'Impact Arena', 'An open meetup for blockchain developers and enthusiasts.', 2, NULL, 250),
+(14, 'Digital Marketing Forum', '2024-12-10', '11:00:00', 'CentralWorld, Bangkok', 'Learn the latest strategies in digital marketing from industry experts.', 4, NULL, 180),
+(15, 'Healthcare Innovation Fair', '2025-01-15', '09:30:00', 'Siriraj Hospital', 'Showcasing innovative solutions in healthcare and medical technology.', 3, NULL, 350),
+(16, 'E-Sports Championship', '2024-12-20', '12:00:00', 'Impact Challenger Hall', 'An e-sports event featuring competitive gaming tournaments.', 1, NULL, 400),
+(17, 'we', '2024-10-26', '20:20:00', 'bangkadee', 'unity', NULL, NULL, 100),
+(42, 'AI & Robotics Expo', '2025-01-10', '13:00:00', 'Robotics Innovation Center', 'Exhibition on AI and robotics technologies.', 3, 8, 500),
+(43, 'Web Development Bootcamp', '2025-02-05', '09:00:00', 'Web Dev Hub', 'Intensive bootcamp for learning web development skills.', 5, 10, 450),
+(44, 'IoT Conference', '2025-02-15', '10:00:00', 'Smart City Convention Center', 'Discussing innovations in the Internet of Things.', 1, 11, 120),
+(45, 'Big Data Analytics Meet', '2025-03-01', '15:00:00', 'Data Hub Building', 'Meetup focusing on big data analytics and tools.', 2, 12, 300),
+(46, 'AR/VR Summit', '2025-03-10', '11:30:00', 'Virtual Reality Center', 'Event showcasing AR and VR technologies.', 3, 13, 200),
+(47, 'Mobile App Hackathon', '2025-03-25', '08:00:00', 'Tech Hub Building', '24-hour hackathon to build innovative mobile apps.', 4, 14, 250),
+(48, 'Cloud Computing Expo', '2025-04-05', '14:30:00', 'Cloud Innovation Center', 'Expo on cloud technologies and services.', 5, 15, 320),
+(49, 'AI in Finance Summit', '2025-04-20', '09:00:00', 'Finance Tech Auditorium', 'Exploring AI applications in the financial sector.', 1, 16, 280),
+(50, 'Data Science Workshop', '2025-05-10', '13:00:00', 'Data Science Hub', 'Hands-on workshop for data science enthusiasts.', 2, 17, 220),
+(51, 'Quantum Computing Conference', '2025-05-25', '14:00:00', 'Quantum Innovation Hall', 'Discussing breakthroughs in quantum computing.', 3, 18, 150),
+(52, 'Green Tech Expo', '2025-06-05', '11:00:00', 'Green Tech Center', 'Showcasing sustainable and eco-friendly technologies.', 4, 19, 180),
+(53, 'Ethical Hacking Workshop', '2025-06-20', '09:30:00', 'Cyber Defense Auditorium', 'Workshop on ethical hacking techniques and tools.', 5, 20, 260);
+
+--
+-- Triggers `events`
+--
+DELIMITER $$
+CREATE TRIGGER `check_max_attendance` BEFORE INSERT ON `events` FOR EACH ROW BEGIN
+    DECLARE loc_capacity INT;
+    
+    -- Get the capacity of the location associated with the event
+    SELECT capacity INTO loc_capacity
+    FROM eventmanagement.locations
+    WHERE location_id = NEW.location_id;
+    
+    -- Check if max_attendance exceeds the location's capacity
+    IF NEW.max_attendance > loc_capacity THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: max_attendance cannot exceed location capacity';
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `check_max_attendance_update` BEFORE UPDATE ON `events` FOR EACH ROW BEGIN
+    DECLARE loc_capacity INT;
+
+    -- Get the capacity of the location associated with the event
+    SELECT capacity INTO loc_capacity
+    FROM eventmanagement.locations
+    WHERE location_id = NEW.location_id;
+    
+    -- Check if max_attendance exceeds the location's capacity
+    IF NEW.max_attendance > loc_capacity THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: max_attendance cannot exceed location capacity';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -114,26 +153,27 @@ CREATE TABLE `locations` (
   `address` text,
   `city` varchar(50) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL,
-  `zip_code` varchar(10) DEFAULT NULL
+  `zip_code` varchar(10) DEFAULT NULL,
+  `capacity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `locations`
 --
 
-INSERT INTO `locations` (`location_id`, `location_name`, `address`, `city`, `state`, `zip_code`) VALUES
-(8, 'Robotics Innovation Center', '123 Robotics St', 'Tech City', 'TX', '75001'),
-(10, 'Web Dev Hub', '456 Dev Lane', 'Code City', 'CA', '90210'),
-(11, 'Smart City Convention Center', '789 Smart Rd', 'Innovate City', 'NY', '10001'),
-(12, 'Data Hub Building', '321 Data Blvd', 'Analytics City', 'FL', '33101'),
-(13, 'Virtual Reality Center', '654 VR Ave', 'Virtual City', 'WA', '98101'),
-(14, 'Tech Hub Building', '987 Tech Dr', 'Startup City', 'MA', '02101'),
-(15, 'Cloud Innovation Center', '111 Cloud Way', 'Cloud City', 'OR', '97201'),
-(16, 'Finance Tech Auditorium', '222 Finance St', 'Finance City', 'IL', '60601'),
-(17, 'Data Science Hub', '333 Science Rd', 'Data City', 'TX', '75201'),
-(18, 'Quantum Innovation Hall', '444 Quantum Blvd', 'Quantum City', 'AZ', '85001'),
-(19, 'Green Tech Center', '555 Green St', 'Eco City', 'CA', '90001'),
-(20, 'Cyber Defense Auditorium', '666 Defense Dr', 'Cyber City', 'VA', '22101');
+INSERT INTO `locations` (`location_id`, `location_name`, `address`, `city`, `state`, `zip_code`, `capacity`) VALUES
+(8, 'Robotics Innovation Center', '123 Robotics St', 'Tech City', 'TX', '75001', 150),
+(10, 'Web Dev Hub', '456 Dev Lane', 'Code City', 'CA', '90210', 100),
+(11, 'Smart City Convention Center', '789 Smart Rd', 'Innovate City', 'NY', '10001', 200),
+(12, 'Data Hub Building', '321 Data Blvd', 'Analytics City', 'FL', '33101', 250),
+(13, 'Virtual Reality Center', '654 VR Ave', 'Virtual City', 'WA', '98101', 180),
+(14, 'Tech Hub Building', '987 Tech Dr', 'Startup City', 'MA', '02101', 300),
+(15, 'Cloud Innovation Center', '111 Cloud Way', 'Cloud City', 'OR', '97201', 120),
+(16, 'Finance Tech Auditorium', '222 Finance St', 'Finance City', 'IL', '60601', 220),
+(17, 'Data Science Hub', '333 Science Rd', 'Data City', 'TX', '75201', 150),
+(18, 'Quantum Innovation Hall', '444 Quantum Blvd', 'Quantum City', 'AZ', '85001', 400),
+(19, 'Green Tech Center', '555 Green St', 'Eco City', 'CA', '90001', 350),
+(20, 'Cyber Defense Auditorium', '666 Defense Dr', 'Cyber City', 'VA', '22101', 500);
 
 -- --------------------------------------------------------
 
@@ -146,35 +186,20 @@ CREATE TABLE `sponsors` (
   `sponsor_name` varchar(100) NOT NULL,
   `contact_person` varchar(100) DEFAULT NULL,
   `contact_email` varchar(100) DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `sponsorship_amount` decimal(10,2) NOT NULL
+  `phone_number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sponsors`
 --
 
-INSERT INTO `sponsors` (`sponsor_id`, `sponsor_name`, `contact_person`, `contact_email`, `phone_number`, `sponsorship_amount`) VALUES
-(1, 'Tech Corp', 'John Doe', 'johndoe@techcorp.com', '123-456-7890', '5000.00'),
-(2, 'Innovate Inc.', 'Jane Smith', 'janesmith@innovate.com', '987-654-3210', '7500.00'),
-(3, 'Alpha Industries', 'Michael Brown', 'michael@alpha.com', '456-789-1230', '3000.00'),
-(4, 'Future Solutions', 'Emily White', 'emily@future.com', '321-654-9870', '10000.00'),
-(5, 'Pioneer Partners', 'Sarah Green', 'sarah@pioneer.com', '789-123-4560', '1500.00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tickets`
---
-
-CREATE TABLE `tickets` (
-  `ticket_id` int(11) NOT NULL,
-  `event_id` int(11) DEFAULT NULL,
-  `attendee_id` int(11) DEFAULT NULL,
-  `ticket_type` enum('Standard','VIP') DEFAULT 'Standard',
-  `ticket_price` decimal(10,2) NOT NULL,
-  `issue_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `sponsors` (`sponsor_id`, `sponsor_name`, `contact_person`, `contact_email`, `phone_number`) VALUES
+(1, 'Tech Corp', 'John Doe', 'johndoe@techcorp.com', '123-456-7890'),
+(2, 'Innovate Inc.', 'Jane Smith', 'janesmith@innovate.com', '987-654-3210'),
+(3, 'Alpha Industries', 'Michael Brown', 'michael@alpha.com', '456-789-1230'),
+(4, 'Future Solutions', 'Emily White', 'emily@future.com', '321-654-9870'),
+(5, 'Pioneer Partners', 'Sarah Green', 'sarah@pioneer.com', '789-123-4560'),
+(6, 'Tech Corp2', 'Jane Doe', 'Janedoe@techcorp.com', '123-456-7892');
 
 -- --------------------------------------------------------
 
@@ -249,7 +274,6 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `user_type`, `c
 (53, 'user47', '$2y$10$wJaqd0a1D5nKj/IlG9pB8O7CVG9W/12RjNzKgRIjTBgpffuW3NZFi', 'user47@example.com', 'User', '2024-10-26 02:45:55'),
 (54, 'user48', '$2y$10$wJaqd0a1D5nKj/IlG9pB8O7CVG9W/12RjNzKgRIjTBgpffuW3NZFi', 'user48@example.com', 'User', '2024-10-26 02:45:55'),
 (55, 'user49', '$2y$10$wJaqd0a1D5nKj/IlG9pB8O7CVG9W/12RjNzKgRIjTBgpffuW3NZFi', 'user49@example.com', 'User', '2024-10-26 02:45:55'),
-(56, 'user50', '$2y$10$wJaqd0a1D5nKj/IlG9pB8O7CVG9W/12RjNzKgRIjTBgpffuW3NZFi', 'user50@example.com', 'User', '2024-10-26 02:45:55'),
 (57, 'admin5', '$2y$10$wJaqd0a1D5nKj/IlG9pB8O7CVG9W/12RjNzKgRIjTBgpffuW3NZFi', 'admin5@example.com', 'Admin', '2024-10-26 02:47:00'),
 (58, 'admin6', '$2y$10$wJaqd0a1D5nKj/IlG9pB8O7CVG9W/12RjNzKgRIjTBgpffuW3NZFi', 'admin6@example.com', 'Admin', '2024-10-26 02:47:00'),
 (59, 'admin7', '$2y$10$wJaqd0a1D5nKj/IlG9pB8O7CVG9W/12RjNzKgRIjTBgpffuW3NZFi', 'admin7@example.com', 'Admin', '2024-10-26 02:47:00'),
@@ -297,14 +321,6 @@ ALTER TABLE `sponsors`
   ADD PRIMARY KEY (`sponsor_id`);
 
 --
--- Indexes for table `tickets`
---
-ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`ticket_id`),
-  ADD KEY `event_id` (`event_id`),
-  ADD KEY `attendee_id` (`attendee_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -336,13 +352,7 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `sponsors`
 --
 ALTER TABLE `sponsors`
-  MODIFY `sponsor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tickets`
---
-ALTER TABLE `tickets`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sponsor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -374,13 +384,6 @@ ALTER TABLE `events`
 ALTER TABLE `event_sponsors`
   ADD CONSTRAINT `event_sponsors_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`),
   ADD CONSTRAINT `event_sponsors_ibfk_2` FOREIGN KEY (`sponsor_id`) REFERENCES `sponsors` (`sponsor_id`);
-
---
--- Constraints for table `tickets`
---
-ALTER TABLE `tickets`
-  ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`),
-  ADD CONSTRAINT `tickets_ibfk_2` FOREIGN KEY (`attendee_id`) REFERENCES `attendees` (`attendee_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
