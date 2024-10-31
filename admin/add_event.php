@@ -76,14 +76,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         button {
             padding: 10px 20px;
-            background-color: #4caf50;
+            background-color: #0098ff;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #0065a9;
         }
         .error {
             color: red;
