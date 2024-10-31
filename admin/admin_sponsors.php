@@ -133,7 +133,6 @@ $sponsors = $conn->query("SELECT * FROM sponsors ORDER BY sponsor_id ASC");
                     <th>Contact Person</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Sponsorship Amount</th>
                     <th>Actions</th>
                 </tr>
                 <?php if ($sponsors->num_rows > 0): ?>
@@ -144,7 +143,6 @@ $sponsors = $conn->query("SELECT * FROM sponsors ORDER BY sponsor_id ASC");
                         <td><?php echo htmlspecialchars($sponsor['contact_person']); ?></td>
                         <td><?php echo htmlspecialchars($sponsor['contact_email']); ?></td>
                         <td><?php echo htmlspecialchars($sponsor['phone_number']); ?></td>
-                        <td><?php echo htmlspecialchars($sponsor['sponsorship_amount']); ?></td>
                         <td>
                             <a href="edit_sponsor.php?id=<?php echo $sponsor['sponsor_id']; ?>">Edit</a> |
                             <a href="delete_sponsor.php?id=<?php echo $sponsor['sponsor_id']; ?>" onclick="return confirm('Are you sure you want to delete this sponsor?')">Delete</a>

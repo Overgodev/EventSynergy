@@ -13,11 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_person = $conn->real_escape_string($_POST['contact_person']);
     $contact_email = $conn->real_escape_string($_POST['contact_email']);
     $phone_number = $conn->real_escape_string($_POST['phone_number']);
-    $sponsorship_amount = $conn->real_escape_string($_POST['sponsorship_amount']);
 
     // Insert sponsor details into the database
-    $sql = "INSERT INTO Sponsors (sponsor_name, contact_person, contact_email, phone_number, sponsorship_amount) 
-            VALUES ('$sponsor_name', '$contact_person', '$contact_email', '$phone_number', '$sponsorship_amount')";
+    $sql = "INSERT INTO Sponsors (sponsor_name, contact_person, contact_email, phone_number ) 
+            VALUES ('$sponsor_name', '$contact_person', '$contact_email', '$phone_number')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success_message'] = "Sponsor added successfully!";
