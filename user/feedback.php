@@ -1,3 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="../assets/css/style2.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+<!-- Header -->
+<header>
+        <h1>Event Management System</h1>
+</header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="../index.php">Home</a>
+        <a href="/auth/register.php">Register</a>
+        <a href="../user/user.php">Browse Events</a>
+        <a href="feedback.php">Feedback</a>
+    </nav>
+    
+    <!-- Feedback Form -->
+    <div class="container">
+        <div class="section" id="feedback">
+            <h2>Event Feedback</h2>
+            <form action="feedback.php" method="POST">
+                <label for="event">Event Attended:</label>
+                <select id="event" name="event">
+                    <option value="1">Tech Conference 2024</option>
+                    <option value="2">Startup Expo 2024</option>
+                </select>
+
+                <label for="feedback">Your Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="4" required></textarea>
+
+                <button type="submit">Submit Feedback</button>
+            </form>
+
 <?php
 include '../config/db_connect.php';
 
@@ -17,3 +57,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+

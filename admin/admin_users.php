@@ -56,24 +56,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
             text-decoration: underline;
         }
 
-        /* Navigation bar styling */
-        nav {
-            background-color: #0065a9;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav a {
-            color: #A7E4FF;
-            font-weight: bold;
-            margin: 0 20px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        nav a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
+        
 
         /* Message styles */
         .success-message, .error-message {

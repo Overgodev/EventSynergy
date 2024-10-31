@@ -65,25 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-decoration: underline;
         }
 
-        /* Navigation bar styling */
-        nav {
-            background-color: #0065a9;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav a {
-            color: #A7E4FF;
-            font-weight: bold;
-            margin: 0 20px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        nav a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
+        
         /* Main Content */
         .container {
             margin: 20px;
@@ -112,17 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: #333333;
             color: #ffffff;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
+        
         .error {
             color: red;
             margin-top: 10px;

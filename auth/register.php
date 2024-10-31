@@ -110,17 +110,7 @@ ob_end_flush();
             border-radius: 5px;
             width: 100%;
         }
-        button {
-            padding: 10px;
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
+        
     </style>
 </head>
 <body>
@@ -134,8 +124,8 @@ ob_end_flush();
     <nav>
         <a href="../index.php">Home</a>
         <a href="register.php">Register</a>
-        <a href="../user/events.html">Browse Events</a>
-        <a href="../user/feedback.html">Feedback</a>
+        <a href="../user/user.php">Browse Events</a>
+        <a href="../user/feedback.php">Feedback</a>
     </nav>
     
     <!-- Registration Form -->

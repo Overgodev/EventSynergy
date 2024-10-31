@@ -74,17 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #0098ff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0065a9;
-        }
+        
+        
         .error {
             color: red;
             margin-top: 10px;

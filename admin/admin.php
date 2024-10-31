@@ -55,24 +55,7 @@
                 text-decoration: underline;
             }
 
-            /* Navigation bar styling */
-            nav {
-                background-color: #0065a9; /* Match darker cyan */
-                display: flex;
-                justify-content: center;
-                padding: 10px 0;
-            }
-            nav a {
-                color: #A7E4FF; /* Light cyan for links */
-                font-weight: bold;
-                margin: 0 20px;
-                text-decoration: none;
-                font-size: 18px;
-            }
-            nav a:hover {
-                color: #ffffff; /* White text on hover */
-                text-decoration: underline;
-            }
+           
 
             /* Layout Styles */
             .container {
