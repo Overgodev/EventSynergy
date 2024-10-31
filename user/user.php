@@ -15,7 +15,7 @@ $query = "
     SELECT e.event_id, e.event_name, e.event_date, e.event_time, e.location, e.description 
     FROM events e
     LEFT JOIN attendees a ON e.event_id = a.event_id AND a.user_id = ?
-    WHERE a.user_id IS NULL
+    WHERE a.user_id IS NULL AND e.event_date >= CURDATE()
     ORDER BY e.event_date ASC, e.event_time ASC";
 
 $stmt = $conn->prepare($query);
