@@ -71,7 +71,7 @@ if (!$events) {
             padding: 20px;
             border: 1px solid #555555;
             border-radius: 5px;
-            background-color: #444444;
+            background-color: #252525;
         }
 
         /* Table styles */

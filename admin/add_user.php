@@ -38,63 +38,106 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         /* Header styling */
         header {
-            background-color: #0065a9; /* Dark cyan for consistency */
+            background-color: #0065a9;
             color: white;
-            padding: 15px 20px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-family: Arial, sans-serif;
         }
         header h1 {
             margin: 0;
-            font-size: 24px;
         }
         header p {
             margin: 0;
-            font-size: 16px;
         }
         header a {
             color: white;
             text-decoration: none;
             font-weight: bold;
             margin-left: 15px;
-            font-size: 16px;
         }
         header a:hover {
             text-decoration: underline;
         }
 
-        
-        /* Main Content */
+
+        /* Container and Form Styles */
         .container {
-            margin: 20px;
+            padding: 20px;
+            background-color: #1e1e1e;
         }
         .section {
+            margin: 20px 0;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #555555;
             border-radius: 5px;
-            max-width: 500px;
-            margin: auto;
-            background-color: #252525;
-            color: #ffffff;
+            background-color: #444444;
         }
         label {
             display: block;
             margin-top: 10px;
             font-weight: bold;
+            color: #ffffff;
+            width: 150px; /* Set a consistent width */            
+            margin-bottom: 0; /* Remove margin for better alignment */
+
+        /* Container styling */
+        }form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0 auto; /* Center form on page */
         }
-        input[type="text"], input[type="email"], input[type="password"], select {
+
+        form > div {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
+            justify-content: flex-end;
+        }
+
+        
+
+        /* Input, textarea, and select styling */
+        input,
+        textarea,
+        select {
+            flex: 1; /* Allow inputs to take available space */
+            padding: 10px;
+            border: 1px solid #555555;
             border-radius: 4px;
             background-color: #333333;
             color: #ffffff;
+            box-sizing: border-box; /* Ensures padding doesn't exceed container */
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 10px;
+            margin: 10px 0 0px;
+            border-radius: 5px;
+            border: 1px solid #555555;;
         }
         
+
+        /* Button Styling */
+        button {
+            padding: 10px 20px;
+            background-color: #0098ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0065a9;
+        }
         .error {
             color: red;
             margin-top: 10px;
@@ -106,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Header -->
     <header>
         <h1>Add User</h1>
-        <p>Admin Panel</p>
+        <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="/auth/logout.php">Logout</a></p>
     </header>
 
     <!-- Navigation -->

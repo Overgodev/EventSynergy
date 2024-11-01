@@ -56,8 +56,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
             text-decoration: underline;
         }
 
-        
-
+       
         /* Message styles */
         .success-message, .error-message {
             padding: 10px;
@@ -86,7 +85,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
             padding: 10px;
             border: 1px solid #555555;
             border-radius: 5px;
-            background-color: #444444;
+            background-color: #252525;
         }
 
         /* Table styles */

@@ -13,6 +13,14 @@ header {
     text-align: center;
 }
 
+h1 {
+    color: #ffffff;
+}
+
+h2 {
+    color: #ffffff;
+}
+
 nav {
     display: flex;
     justify-content: center;
@@ -41,18 +49,10 @@ nav a:visited {
 
 .section {
     margin-bottom: 30px;
-    background-color: #333333; /* Dark grey */
+    background-color: #444444; /* Dark grey */
     padding: 15px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-h1 {
-    color: #ffffff;
-}
-
-h2 {
-    color: #ffffff;
 }
 
 label {
@@ -70,20 +70,48 @@ input, select, textarea {
     color: #ffffff;
 }
 
-button {
-    background-color: #0098ff; /* Cyan */
+/* Input, textarea, and select styling */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+textarea,
+select {
+    flex: 1; /* Allow inputs to take available space */
+    padding: 10px;
+    border: 1px solid #555555;
+    border-radius: 4px;
+    background-color: #252525;
     color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    box-sizing: border-box; /* Ensures padding doesn't exceed container */
 }
 
-button:hover {
-    background-color: #0065a9; /* Dark cyan */
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px 0 0px;
+    border-radius: 5px;
+    border: 1px solid #555555;;
 }
+
+/* Add button styles */
+button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #0098ff; 
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+button:hover {
+    background-color: #0065a9; 
+}
+
+
 
 .event-card {
     border: 1px solid #555555;

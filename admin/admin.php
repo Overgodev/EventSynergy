@@ -68,7 +68,7 @@
             .section {
                 margin: 10px 0;
                 padding: 10px;
-                border: 1px solid #252525;
+                border: 1px solid #555555;
                 border-radius: 5px;
                 background-color: #252525;
             }

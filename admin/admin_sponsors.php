@@ -43,7 +43,6 @@ $sponsors = $conn->query("SELECT * FROM sponsors ORDER BY sponsor_id ASC");
             text-decoration: underline;
         }
 
-        
 
         /* Main Content */
         .container {
@@ -53,6 +52,8 @@ $sponsors = $conn->query("SELECT * FROM sponsors ORDER BY sponsor_id ASC");
 
         .section {
             padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #555555;
             border-radius: 5px;
             background-color: #252525;
         }

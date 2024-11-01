@@ -122,29 +122,11 @@ $conn->close();
             text-decoration: underline;
         }
 
-        /* Navigation bar styling */
-        nav {
-            background-color: #0065a9;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav a {
-            color: #A7E4FF;
-            font-weight: bold;
-            margin: 0 20px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        nav a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
 
         /* Container and Form Styles */
         .container {
             padding: 20px;
-            background-color: #333333;
+            background-color: #1e1e1e;
         }
         .section {
             margin: 20px 0;
@@ -158,22 +140,27 @@ $conn->close();
             margin-top: 10px;
             font-weight: bold;
             color: #ffffff;
-        }
+            width: 150px; /* Set a consistent width */            
+            margin-bottom: 0; /* Remove margin for better alignment */
+
         /* Container styling */
-        form {
+        }form {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             margin: 0 auto; /* Center form on page */
         }
 
-        /* Label and input alignment */
         form > div {
             display: flex;
-            flex-direction: column;
+            flex-direction: row-reverse;
+            align-items: center;
             width: 100%;
             margin-bottom: 15px;
+            justify-content: flex-end;
         }
+
+        
 
         /* Input, textarea, and select styling */
         input[type="text"],
@@ -182,27 +169,31 @@ $conn->close();
         input[type="number"],
         textarea,
         select {
-            width: 100%;
+            flex: 1; /* Allow inputs to take available space */
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #555555;
             border-radius: 4px;
             background-color: #333333;
             color: #ffffff;
             box-sizing: border-box; /* Ensures padding doesn't exceed container */
         }
 
-        /* Optional label styling */
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #ffffff;
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 10px;
+            margin: 10px 0 0px;
+            border-radius: 5px;
+            border: 1px solid #555555;;
         }
-
+        
+        
 
         /* Button Styling */
         button {
             padding: 10px 20px;
-            background-color: #4caf50;
+            background-color: #0098ff;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -210,7 +201,7 @@ $conn->close();
             font-weight: bold;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #0065a9;
         }
     </style>
 </head>

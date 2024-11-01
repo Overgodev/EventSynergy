@@ -13,10 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_person = $conn->real_escape_string($_POST['contact_person']);
     $contact_email = $conn->real_escape_string($_POST['contact_email']);
     $phone_number = $conn->real_escape_string($_POST['phone_number']);
+    $sponsorship_amount = $conn->real_escape_string($_POST['sponsorship_amount']);
 
     // Insert sponsor details into the database
-    $sql = "INSERT INTO Sponsors (sponsor_name, contact_person, contact_email, phone_number ) 
-            VALUES ('$sponsor_name', '$contact_person', '$contact_email', '$phone_number')";
+    $sql = "INSERT INTO Sponsors (sponsor_name, contact_person, contact_email, phone_number, sponsorship_amount) 
+            VALUES ('$sponsor_name', '$contact_person', '$contact_email', '$phone_number', '$sponsorship_amount')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success_message'] = "Sponsor added successfully!";
@@ -61,12 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-decoration: underline;
         }
 
-        
-
         /* Container and Form Styles */
         .container {
             padding: 20px;
-            background-color: #333333;
+            background-color: #1e1e1e;
         }
         .section {
             margin: 20px 0;
@@ -81,19 +80,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-weight: bold;
             color: #ffffff;
         }
-        input[type="text"], input[type="email"], input[type="number"] {
-            width: 100%;
+        /* Input, textarea, and select styling */
+        input, textarea, select {
+            flex: 1; /* Allow inputs to take available space */
             padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid #555555;
             border-radius: 4px;
             background-color: #333333;
             color: #ffffff;
+            box-sizing: border-box; /* Ensures padding doesn't exceed container */
         }
 
-       
-        
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 10px;
+            margin: 10px 0 0px;
+            border-radius: 5px;
+            border: 1px solid #555555;;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 10px 20px;
+            background-color: #0098ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0065a9;
+        }
         .error {
             color: red;
             margin-top: 10px;

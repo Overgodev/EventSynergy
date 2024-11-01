@@ -48,8 +48,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Event</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style2.css">
     <style>
+        /* Header styling */
+        header {
+            background-color: #0065a9;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header p {
+            margin: 0;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
         /* Styling here */
         .container {
             margin: 20px;
@@ -60,22 +84,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 5px;
             max-width: 500px;
             margin: auto;
+            background-color: #444444;
         }
         label {
             display: block;
             margin-top: 10px;
             font-weight: bold;
         }
-        input[type="text"], input[type="date"], input[type="time"], textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
+
+        /* Input, textarea, and select styling */
+        input,
+        textarea,
+        select {
+            flex: 1; /* Allow inputs to take available space */
+            padding: 10px;
+            border: 1px solid #555555;
             border-radius: 4px;
+            background-color: #333333;
+            color: #ffffff;
+            box-sizing: border-box; /* Ensures padding doesn't exceed container */
         }
-        
-        
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+            padding: 10px;
+            margin: 10px 0 0px;
+            border-radius: 5px;
+            border: 1px solid #555555;;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0098ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0065a9;
+        }
         .error {
             color: red;
             margin-top: 10px;
@@ -86,6 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Header -->
     <header>
         <h1>Add Event</h1>
+        <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="/auth/logout.php">Logout</a></p>
     </header>
 
     <!-- Navigation -->
@@ -93,6 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="/admin/admin.php">Dashboard</a>
         <a href="/admin/admin_events.php">Manage Events</a>
         <a href="/admin/admin_users.php">Manage Users</a>
+        <a href="/admin/admin_sponsors.php">Manage Sponsors</a>
+        <a href="/admin/admin_locations.php">Manage Locations</a>
     </nav>
 
     <!-- Add Event Form -->

@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .container {
             width: 400px;
-            background-color: #333333; /* White background */
+            background-color: #444444; /* White background */
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -149,12 +149,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 5px;
             font-size: 16px;
         }
+        
+        input, textarea, select {
+            flex: 1; /* Allow inputs to take available space */
+            padding: 10px;
+            border: 1px solid #555555;
+            border-radius: 4px;
+            background-color: #333333;
+            color: #ffffff;
+            box-sizing: border-box; /* Ensures padding doesn't exceed container */
+        }
 
         /* Button styling */
         .btn {
             width: 100%;
             padding: 12px;
-            background-color: #4caf50; /* Green */
+            background-color: #0098ff; /* Green */
             color: white;
             border: none;
             border-radius: 5px;
@@ -164,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-top: 10px;
         }
         .btn:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #0065a9; /* Darker green on hover */
         }
 
         /* Message styling */
