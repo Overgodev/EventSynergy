@@ -159,16 +159,45 @@ $conn->close();
             font-weight: bold;
             color: #ffffff;
         }
-        input[type="text"], input[type="date"], input[type="time"], input[type="number"], textarea, select {
+        /* Container styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0 auto; /* Center form on page */
+        }
+
+        /* Label and input alignment */
+        form > div {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        /* Input, textarea, and select styling */
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"],
+        textarea,
+        select {
             width: 100%;
             padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: #333333;
             color: #ffffff;
+            box-sizing: border-box; /* Ensures padding doesn't exceed container */
         }
+
+        /* Optional label styling */
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
 
         /* Button Styling */
         button {
