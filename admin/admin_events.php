@@ -147,7 +147,7 @@ if (!$events) {
     <!-- Events Table -->
     <div class="container">
         <div class="section">
-            <h2>All Events</h2>
+            <h2>Upcoming Events</h2>
             <a href="add_event.php" class="add-btn">Add New Event</a>
             <table>
                 <tr>
