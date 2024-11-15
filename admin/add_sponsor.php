@@ -13,11 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_person = $conn->real_escape_string($_POST['contact_person']);
     $contact_email = $conn->real_escape_string($_POST['contact_email']);
     $phone_number = $conn->real_escape_string($_POST['phone_number']);
-    $sponsorship_amount = $conn->real_escape_string($_POST['sponsorship_amount']);
 
     // Insert sponsor details into the database
-    $sql = "INSERT INTO Sponsors (sponsor_name, contact_person, contact_email, phone_number, sponsorship_amount) 
-            VALUES ('$sponsor_name', '$contact_person', '$contact_email', '$phone_number', '$sponsorship_amount')";
+    $sql = "INSERT INTO Sponsors (sponsor_name, contact_person, contact_email, phone_number) 
+            VALUES ('$sponsor_name', '$contact_person', '$contact_email', '$phone_number')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success_message'] = "Sponsor added successfully!";
@@ -80,28 +79,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-weight: bold;
             color: #ffffff;
         }
-        /* Input, textarea, and select styling */
         input, textarea, select {
-            flex: 1; /* Allow inputs to take available space */
+            flex: 1;
             padding: 10px;
             border: 1px solid #555555;
             border-radius: 4px;
             background-color: #333333;
             color: #ffffff;
-            box-sizing: border-box; /* Ensures padding doesn't exceed container */
+            box-sizing: border-box;
         }
-
         input[type="checkbox"] {
             width: auto;
             margin-right: 10px;
             cursor: pointer;
             padding: 10px;
-            margin: 10px 0 0px;
+            margin: 10px 0;
             border-radius: 5px;
-            border: 1px solid #555555;;
+            border: 1px solid #555555;
         }
-
-        /* Button Styling */
         button {
             padding: 10px 20px;
             background-color: #0098ff;
@@ -155,12 +150,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="email" id="contact_email" name="contact_email" required>
 
                 <label for="phone_number">Phone Number:</label>
-                <input type="text" id="phone_number" name="phone_number" required>
+                <input type="text" id="phone_number" name="phone_number" required
+                       pattern="\(\d{3}\) \d{3}-\d{4}" 
+                       title="Phone number must be in the format sana123-456-7890">
 
                 <button type="submit">Add Sponsor</button>
             </form>
         </div>
     </div>
 
+    <!-- JavaScript for Auto-Formatting Phone Number -->
+    <script>
+    const phoneInput = document.getElementById('phone_number');
+
+    phoneInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        if (value.length > 3 && value.length <= 6) {
+            value = `${value.slice(0, 3)}-${value.slice(3)}`;
+        } else if (value.length > 6) {
+            value = `${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6, 10)}`;
+        }
+        e.target.value = value;
+    });
+</script>
+
+
 </body>
 </html>
+
+
