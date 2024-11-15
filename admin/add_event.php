@@ -9,19 +9,22 @@ include '../config/db_connect.php';
 
 // Fetch sponsors for the dropdown
 $sponsor_result = $conn->query("SELECT sponsor_id, sponsor_name FROM sponsors");
+$location_result = $conn->query("SELECT location_id, location_name FROM locations");
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $conn->real_escape_string($_POST['event_name']);
     $date = $conn->real_escape_string($_POST['event_date']);
     $time = $conn->real_escape_string($_POST['event_time']);
-    $location = $conn->real_escape_string($_POST['location']);
+    $location_id = $conn->real_escape_string($_POST['location_id']);
+    $location = !empty($_POST['location']) ? $conn->real_escape_string($_POST['location']) : NULL;
     $description = $conn->real_escape_string($_POST['description']);
-    $sponsor_id = $conn->real_escape_string($_POST['sponsor_id']);  // New sponsor ID
+    $sponsor_id = !empty($_POST['sponsor_id']) ? $conn->real_escape_string($_POST['sponsor_id']) : NULL;  // New sponsor ID
 
     // Insert event details
-    $sql = "INSERT INTO events (event_name, event_date, event_time, location, description) 
-            VALUES ('$name', '$date', '$time', '$location', '$description')";
+    $sql = "INSERT INTO events (event_name, event_date, event_time, location, location_id, description) 
+            VALUES ('$name', '$date', '$time', '$description', " . 
+            ($location_id ? "'$location_id'" : "NULL") . ")";
 
     if ($conn->query($sql) === TRUE) {
         // Get the ID of the newly created event
@@ -50,40 +53,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Add Event</title>
     <link rel="stylesheet" href="/assets/css/style2.css">
     <style>
-        /* Header styling */
-        header {
-            background-color: #0065a9;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        header p {
-            margin: 0;
-        }
-        header a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 15px;
-        }
-        header a:hover {
-            text-decoration: underline;
-        }
+       
         /* Styling here */
         .container {
-            margin: 20px;
+            padding: 20px;
+            background-color: #1e1e1e;
         }
         .section {
+            margin: 20px 0;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #555555;
             border-radius: 5px;
-            max-width: 500px;
-            margin: auto;
             background-color: #444444;
         }
         label {
@@ -115,17 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border: 1px solid #555555;;
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #0098ff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0065a9;
-        }
         .error {
             color: red;
             margin-top: 10px;
@@ -165,7 +134,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="event_time">Event Time:</label>
                 <input type="time" id="event_time" name="event_time" required>
 
-                <label for="location">Location:</label>
+                <label for="location_id">Location:</label>
+                <select id="location_id" name="location_id" required>
+                    <option value="">-- No Location --</option>
+                    <?php while ($location = $location_result->fetch_assoc()): ?>
+                        <option value="<?php echo $location['location_id']; ?>">
+                            <?php echo $location['location_name']; ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+                
+                <label for="location">Room:</label>
                 <input type="text" id="location" name="location" required>
 
                 <label for="description">Description:</label>
@@ -174,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- New Sponsor Selection -->
                 <label for="sponsor_id">Sponsor:</label>
                 <select id="sponsor_id" name="sponsor_id">
-                    <option value="">-- Select Sponsor --</option>
+                    <option value="">-- No Sponsor --</option>
                     <?php while ($sponsor = $sponsor_result->fetch_assoc()): ?>
                         <option value="<?php echo $sponsor['sponsor_id']; ?>"><?php echo $sponsor['sponsor_name']; ?></option>
                     <?php endwhile; ?>

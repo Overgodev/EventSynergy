@@ -97,7 +97,7 @@ $admins = $conn->query("SELECT * FROM Users WHERE user_type = 'Admin' ORDER BY u
         th, td {
             padding: 10px;
             border: 1px solid #555555;
-            text-align: left;
+            text-align: center;
         }
         th {
             background-color: #0065a9;

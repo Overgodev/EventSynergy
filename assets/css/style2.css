@@ -7,10 +7,12 @@ body {
 }
 
 header {
-    background-color: #0065a9; /* Dark cyan */
-    color: #ffffff;
-    padding: 15px;
-    text-align: center;
+    background-color: #0065a9;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h1 {
@@ -21,6 +23,21 @@ h2 {
     color: #ffffff;
 }
 
+header h1 {
+    margin: 0;
+}
+header p {
+    margin: 0;
+}
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 15px;
+}
+header a:hover {
+    text-decoration: underline;
+}
 nav {
     display: flex;
     justify-content: center;
@@ -100,16 +117,18 @@ input[type="checkbox"] {
 button {
     display: inline-block;
     margin-top: 10px;
-    padding: 8px 15px;
+    padding: 10px 20px;
     background-color: #0098ff; 
     color: white;
     border-radius: 5px;
     text-decoration: none;
+    cursor: pointer;
     font-weight: bold;
 }
 button:hover {
     background-color: #0065a9; 
 }
+
 
 
 

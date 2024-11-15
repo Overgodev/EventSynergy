@@ -12,7 +12,8 @@ $event = [
     'event_name' => '',
     'event_date' => '',
     'event_time' => '',
-    'location_id' => null,
+    'location'=> '',
+    'location_id' => '',
     'description' => '',
     'max_attendance' => '',
     'sponsors' => []
@@ -62,12 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['event_date'];
     $time = $_POST['event_time'];
     $location_id = $_POST['location_id'];
+    $location = $_POST['location'];
     $description = $_POST['description'];
     $max_attendance = $_POST['max_attendance'];
     $selected_sponsors = isset($_POST['sponsor_id']) ? $_POST['sponsor_id'] : [];
 
     // Update event details in Events table
-    $sql = "UPDATE Events SET event_name = ?, event_date = ?, event_time = ?, location_id = ?, description = ?, max_attendance = ? WHERE event_id = ?";
+    $sql = "UPDATE Events SET event_name = ?, event_date = ?, event_time = ?, location_id = ?, location= ?,  description = ?, max_attendance = ? WHERE event_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssisi", $name, $date, $time, $location_id, $description, $max_attendance, $event_id);
 
@@ -97,30 +99,6 @@ $conn->close();
     <title>Edit Event</title>
     <link rel="stylesheet" href="../assets/css/style2.css">
     <style>
-        /* Header styling */
-        header {
-            background-color: #0065a9;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        header p {
-            margin: 0;
-        }
-        header a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 15px;
-        }
-        header a:hover {
-            text-decoration: underline;
-        }
 
         /* Container and Form Styles */
         .container {
@@ -216,18 +194,7 @@ $conn->close();
             transform: rotate(45deg);
         }
 
-        button {
-            padding: 10px 20px;
-            background-color: #0098ff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #0065a9;
-        }
+        
     </style>
 </head>
 <body>
@@ -271,6 +238,9 @@ $conn->close();
                         </option>
                     <?php endwhile; ?>
                 </select>
+                
+                <label for="location">Room:</label>
+                <input type="text" id="location" name="location" value="<?php echo $event['location']; ?>" required>
 
                 <label for="max_attendance">Max People:</label>
                 <input type="number" id="max_attendance" name="max_attendance" value="<?php echo htmlspecialchars($event['max_attendance']); ?>" required>
