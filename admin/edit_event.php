@@ -122,7 +122,6 @@ $conn->close();
             text-decoration: underline;
         }
 
-
         /* Container and Form Styles */
         .container {
             padding: 20px;
@@ -140,57 +139,83 @@ $conn->close();
             margin-top: 10px;
             font-weight: bold;
             color: #ffffff;
-            width: 150px; /* Set a consistent width */            
-            margin-bottom: 0; /* Remove margin for better alignment */
-
-        /* Container styling */
-        }form {
+        }
+        form {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            margin: 0 auto; /* Center form on page */
+            margin: 0 auto;
         }
-
         form > div {
             display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
+            flex-direction: column;
             width: 100%;
             margin-bottom: 15px;
-            justify-content: flex-end;
         }
-
-        
-
-        /* Input, textarea, and select styling */
         input[type="text"],
         input[type="date"],
         input[type="time"],
         input[type="number"],
         textarea,
         select {
-            flex: 1; /* Allow inputs to take available space */
             padding: 10px;
             border: 1px solid #555555;
             border-radius: 4px;
             background-color: #333333;
             color: #ffffff;
-            box-sizing: border-box; /* Ensures padding doesn't exceed container */
+            box-sizing: border-box;
+            width: 100%;
         }
 
-        input[type="checkbox"] {
-            width: auto;
-            margin-right: 10px;
+        /* Custom Checkbox Styles */
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
             cursor: pointer;
-            padding: 10px;
-            margin: 10px 0 0px;
-            border-radius: 5px;
-            border: 1px solid #555555;;
+            font-size: 16px;
+            user-select: none;
+            color: white;
         }
-        
-        
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border-radius: 4px;
+        }
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .checkbox-container .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
 
-        /* Button Styling */
         button {
             padding: 10px 20px;
             background-color: #0098ff;
@@ -256,10 +281,10 @@ $conn->close();
                 <label for="sponsor_id">Sponsors:</label>
                 <?php if ($sponsors->num_rows > 0): ?>
                     <?php while ($sponsor = $sponsors->fetch_assoc()): ?>
-                        <div>
+                        <label class="checkbox-container"><?php echo htmlspecialchars($sponsor['sponsor_name']); ?>
                             <input type="checkbox" id="sponsor_<?php echo $sponsor['sponsor_id']; ?>" name="sponsor_id[]" value="<?php echo $sponsor['sponsor_id']; ?>" <?php echo in_array($sponsor['sponsor_id'], $event['sponsors']) ? 'checked' : ''; ?>>
-                            <label for="sponsor_<?php echo $sponsor['sponsor_id']; ?>"><?php echo htmlspecialchars($sponsor['sponsor_name']); ?></label>
-                        </div>
+                            <span class="checkmark"></span>
+                        </label>
                     <?php endwhile; ?>
                 <?php endif; ?>
 
