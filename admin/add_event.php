@@ -16,34 +16,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $conn->real_escape_string($_POST['event_name']);
     $date = $conn->real_escape_string($_POST['event_date']);
     $time = $conn->real_escape_string($_POST['event_time']);
-    $location_id = $conn->real_escape_string($_POST['location_id']);
-    $location = !empty($_POST['location']) ? $conn->real_escape_string($_POST['location']) : NULL;
+    $location_id = !empty($_POST['location_id']) ? $conn->real_escape_string($_POST['location_id']) : NULL;
+    $room = !empty($_POST['location']) ? $conn->real_escape_string($_POST['location']) : NULL;
     $description = $conn->real_escape_string($_POST['description']);
-    $sponsor_id = !empty($_POST['sponsor_id']) ? $conn->real_escape_string($_POST['sponsor_id']) : NULL;  // New sponsor ID
+    $sponsor_id = !empty($_POST['sponsor_id']) ? $conn->real_escape_string($_POST['sponsor_id']) : NULL;
 
-    // Insert event details
-    $sql = "INSERT INTO events (event_name, event_date, event_time, location, location_id, description) 
-            VALUES ('$name', '$date', '$time', '$description', " . 
-            ($location_id ? "'$location_id'" : "NULL") . ")";
-
-    if ($conn->query($sql) === TRUE) {
-        // Get the ID of the newly created event
-        $event_id = $conn->insert_id;
-
-        // Insert into event_sponsors table
-        if ($sponsor_id) {
-            $sql_sponsor = "INSERT INTO event_sponsors (event_id, sponsor_id) VALUES ('$event_id', '$sponsor_id')";
-            $conn->query($sql_sponsor);
-        }
-
-        header('Location: admin_events.php');
-        exit;
+    // Check if both location_id and room are empty
+    if (empty($location_id) && empty($room)) {
+        $error = "You must select a location or specify a room.";
     } else {
-        $error = "Error: " . $sql . "<br>" . $conn->error;
+        // Insert event details
+        $sql = "INSERT INTO events (event_name, event_date, event_time, location, location_id, description) 
+                VALUES ('$name', '$date', '$time', " . 
+                ($room ? "'$room'" : "NULL") . ", " . 
+                ($location_id ? "'$location_id'" : "NULL") . ", '$description')";
+
+        if ($conn->query($sql) === TRUE) {
+            // Get the ID of the newly created event
+            $event_id = $conn->insert_id;
+
+            // Insert into event_sponsors table if sponsor_id is set
+            if ($sponsor_id) {
+                $sql_sponsor = "INSERT INTO event_sponsors (event_id, sponsor_id) VALUES ('$event_id', '$sponsor_id')";
+                $conn->query($sql_sponsor);
+            }
+
+            header('Location: admin_events.php');
+            exit;
+        } else {
+            $error = "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
+
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,8 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Add Event</title>
     <link rel="stylesheet" href="/assets/css/style2.css">
     <style>
-       
-        /* Styling here */
         .container {
             padding: 20px;
             background-color: #1e1e1e;
@@ -71,30 +77,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-top: 10px;
             font-weight: bold;
         }
-
-        /* Input, textarea, and select styling */
-        input,
-        textarea,
-        select {
-            flex: 1; /* Allow inputs to take available space */
+        input, textarea, select {
+            flex: 1;
             padding: 10px;
             border: 1px solid #555555;
             border-radius: 4px;
             background-color: #333333;
             color: #ffffff;
-            box-sizing: border-box; /* Ensures padding doesn't exceed container */
+            box-sizing: border-box;
         }
-
         input[type="checkbox"] {
             width: auto;
             margin-right: 10px;
             cursor: pointer;
             padding: 10px;
-            margin: 10px 0 0px;
+            margin: 10px 0;
             border-radius: 5px;
-            border: 1px solid #555555;;
+            border: 1px solid #555555;
         }
-
         .error {
             color: red;
             margin-top: 10px;
