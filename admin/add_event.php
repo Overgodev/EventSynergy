@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location_id = !empty($_POST['location_id']) ? $conn->real_escape_string($_POST['location_id']) : NULL;
     $room = !empty($_POST['location']) ? $conn->real_escape_string($_POST['location']) : NULL;
     $description = $conn->real_escape_string($_POST['description']);
+    $max_attendance = $conn->real_escape_string($_POST['max_attendance']); // New field
     $sponsor_id = !empty($_POST['sponsor_id']) ? $conn->real_escape_string($_POST['sponsor_id']) : NULL;
 
     // Check if both location_id and room are empty
@@ -26,10 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "You must select a location or specify a room.";
     } else {
         // Insert event details
-        $sql = "INSERT INTO events (event_name, event_date, event_time, location, location_id, description) 
+        $sql = "INSERT INTO events (event_name, event_date, event_time, location, location_id, description, max_attendance) 
                 VALUES ('$name', '$date', '$time', " . 
                 ($room ? "'$room'" : "NULL") . ", " . 
-                ($location_id ? "'$location_id'" : "NULL") . ", '$description')";
+                ($location_id ? "'$location_id'" : "NULL") . ", '$description', '$max_attendance')";
 
         if ($conn->query($sql) === TRUE) {
             // Get the ID of the newly created event
@@ -51,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -165,3 +167,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+

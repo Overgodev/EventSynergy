@@ -69,9 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $selected_sponsors = isset($_POST['sponsor_id']) ? $_POST['sponsor_id'] : [];
 
     // Update event details in Events table
-    $sql = "UPDATE Events SET event_name = ?, event_date = ?, event_time = ?, location_id = ?, location= ?,  description = ?, max_attendance = ? WHERE event_id = ?";
+    $sql = "UPDATE Events SET event_name = ?, event_date = ?, event_time = ?, location_id = ?, location = ?, description = ?, max_attendance = ? WHERE event_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssisi", $name, $date, $time, $location_id, $description, $max_attendance, $event_id);
+    $stmt->bind_param("sssissii", $name, $date, $time, $location_id, $location, $description, $max_attendance, $event_id);
 
     if ($stmt->execute()) {
         // Update sponsors in event_sponsors table
@@ -88,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error updating event: " . $stmt->error;
     }
 }
+
 
 $conn->close();
 ?>
