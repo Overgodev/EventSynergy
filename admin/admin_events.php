@@ -120,7 +120,13 @@ if (!$events) {
                         <td><?php echo htmlspecialchars($event['max_attendance']); ?></td>
                         <td>
                             <a href="edit_event.php?id=<?php echo $event['event_id']; ?>">Edit</a> |
-                            <a href="delete_event.php?id=<?php echo $event['event_id']; ?>" onclick="return confirmDelete()">Delete</a>
+                            <a href="javascript:void(0)" onclick="submitDeleteForm(<?php echo $event['event_id']; ?>)">Delete</a>
+                            <!-- Hidden Form for DELETE -->
+                            <form id="deleteForm" action="delete_event.php" method="POST" style="display:none;">
+                                <input type="hidden" name="event_id" id="event_id">
+                                <input type="hidden" name="action" value="delete">
+                                
+                            </form>
                         </td>
                     </tr>
                     <?php endwhile; ?>
@@ -138,6 +144,15 @@ if (!$events) {
         function confirmDelete() {
             return confirm('Are you sure you want to delete this event?');
         }
+        function submitDeleteForm(eventId) {
+    if (confirm('Are you sure you want to delete this event?')) {
+        // Set the event ID in the hidden input
+        document.getElementById('event_id').value = eventId;
+        
+        // Submit the form via POST
+        document.getElementById('deleteForm').submit();
+    }
+}
     </script>
 
 </body>

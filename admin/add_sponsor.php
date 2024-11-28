@@ -151,8 +151,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <label for="phone_number">Phone Number:</label>
                 <input type="text" id="phone_number" name="phone_number" required
-                       pattern="\(\d{3}\) \d{3}-\d{4}" 
-                       title="Phone number must be in the format sana123-456-7890">
+                       pattern="\d{3}\-\d{3}-\d{4}" 
+                       title="Phone number must be in the format 123-456-7890">
 
                 <button type="submit">Add Sponsor</button>
             </form>
