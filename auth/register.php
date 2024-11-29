@@ -56,7 +56,7 @@ ob_end_flush();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System - Register</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style2.css">
     <style>
         /* Header styling */
         header {
@@ -104,12 +104,7 @@ ob_end_flush();
         label, input, button {
             margin-bottom: 10px;
         }
-        input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
+        
         
     </style>
 </head>
