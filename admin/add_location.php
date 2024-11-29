@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert location details into the database
     $sql = "INSERT INTO Locations (location_name, address, city, state, zip_code, capacity) 
-        VALUES ('$location_name', '$address', '$city', '$state', '$zip_code', '$capacity')";
+        VALUES ('$location_name', '$address', '$city', '$state', '$zip_code', '$max_capacity')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['success_message'] = "Location added successfully!";

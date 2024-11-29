@@ -152,6 +152,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4" required></textarea>
 
+                <label for="max_attendance">Max People:</label>
+                <input type="number" id="max_attendance" name="max_attendance" value="<?php echo htmlspecialchars($event['max_attendance']); ?>" required>
+
                 <!-- New Sponsor Selection -->
                 <label for="sponsor_id">Sponsor:</label>
                 <select id="sponsor_id" name="sponsor_id">
